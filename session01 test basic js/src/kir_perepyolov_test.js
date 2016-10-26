@@ -168,17 +168,19 @@
 	Напишите функцию, которая принимает 1 массив,
 	и возвращает другой массив отсортированный от большего к меньшему
 	*/
-	function order (arr) {
-		var x = arr[0];
-		var y = [];
-		for (var i=0;i<arr.length;i++) {
-			x = Math.max(x,arr[i]);
-		// for (var j=0;i,arr.length;j++) {
-
-		// }
-	};
-	return y;
-}
+	function order (arr) {							//ФУНКЦІЯ СОРТУЄ ЛИШЕ ОДНОТИПНІ ДАНІ
+		var y = arr.concat();
+		for (var j=0;j<y.length;j++) {
+			for (var i=1;i<y.length;i++) {
+				if (y[i]>y[i-1]) {
+					var a = y[i-1];
+					y[i-1] = y[i];
+					y[i] = a;
+				};
+			};
+		};
+		return y;
+	}
 
 
 /*
@@ -188,13 +190,13 @@
 	function removeNegative (arr) {
 		var x = arr.concat();
 		for (var i=0;i<x.length;i++) {
-				if (x[i]<0) {
-					x.splice(i,1);
+			if (x[i]<0) {
+				x.splice(i,1);
 					i--;						//для компенсації "зсуву" елементів масиву внаслідок видалення x[i]
 				};
 			};
-		return x;
-	}
+			return x;
+		}
 
 /*
 	Напишите функцию, которая принимает 2 числовых массива,
@@ -205,10 +207,10 @@
 	function without (arrA, arrB) {
 		var x = arrA.concat();
 		for (var i=0;i<x.length;i++) {
-			for (var j=0;i,arrB.length;j++) {
+			for (var j=0;j<arrB.length;j++) {
 				if (x[i] === arrB[j]) {
 					x.splice(i,1);
-					i--;
+					i--;						//для компенсації "зсуву" елементів масиву внаслідок видалення x[i]
 				};
 			};
 		};
