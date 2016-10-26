@@ -177,15 +177,12 @@
 					(typeof y[i] !== typeof y[i-1])&&(
 						(typeof y[i] === 'string')||(typeof y[i-1] === 'undefined')
 						)
-					)) {changePlaces(y,i,j)};
+					)) {
+				y.splice(i-1,0,y.splice(i,1)[0]);
 		};
 	};
-	function changePlaces (arr, i, j){
-		var a = arr[i-1];
-		arr[i-1] = arr[i];
-		arr[i] = a;
-	};
-	return y;
+};
+return y;
 };
 
 
