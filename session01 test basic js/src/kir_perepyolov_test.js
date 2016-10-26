@@ -168,19 +168,25 @@
 	Напишите функцию, которая принимает 1 массив,
 	и возвращает другой массив отсортированный от большего к меньшему
 	*/
-	function order (arr) {							//ФУНКЦІЯ СОРТУЄ ЛИШЕ ОДНОТИПНІ ДАНІ
-		var y = arr.concat();
-		for (var j=0;j<y.length;j++) {
-			for (var i=1;i<y.length;i++) {
-				if (y[i]>y[i-1]) {
-					var a = y[i-1];
-					y[i-1] = y[i];
-					y[i] = a;
-				};
-			};
+	function order (arr) {							//функція сортує лише дані типу "number", "string", "undefined"
+	var y = arr.concat();
+	for (var j=0;j<y.length;j++) {
+		for (var i=1;i<y.length;i++) {
+			if (
+				((y[i] > y[i-1])&&(typeof y[i] === typeof y[i-1]))||(
+					(typeof y[i] !== typeof y[i-1])&&(
+						(typeof y[i] === 'string')||(typeof y[i-1] === 'undefined')
+						)
+					)) {changePlaces(y,i,j)};
 		};
-		return y;
-	}
+	};
+	function changePlaces (arr, i, j){
+		var a = arr[i-1];
+		arr[i-1] = arr[i];
+		arr[i] = a;
+	};
+	return y;
+};
 
 
 /*

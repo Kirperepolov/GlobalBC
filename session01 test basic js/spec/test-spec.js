@@ -133,6 +133,7 @@ describe('Basic JavaScript', function() {
       } else {
         expect(order(["d", "a", "t", "m"])).toEqual(["t", "m", "d", "a"]);
         expect(order([1,2,3])).toEqual([3,2,1]);
+        expect(order([1,"a",,'B',3])).toEqual(["a",'B',3,1,undefined]);
       }
     });
 
