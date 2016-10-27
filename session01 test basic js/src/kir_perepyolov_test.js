@@ -18,6 +18,7 @@
 		switch (typeof variable) {
 			case 'number':
 			case 'string':
+			case 'boolean':
 			var x = 'primitive';
 			break;
 
@@ -40,7 +41,7 @@
 			break;
 
 			default:
-			var x = 'primitive-special'; //на всяк випадок
+			var x = 'please input something'; //на всяк випадок
 		}
 		return x;
 	};
@@ -72,20 +73,21 @@
 	в любом другом случае возврвщвет -1
 	*/
 	function increase (value) {
+		var x = value;
 		if (typeof value === 'number' && value===value) {
-		var x = value+1;			//вирішив не міняти value інкрементами
-	} else {
-		var x = -1;
-	}
-	return x;
-};
+			x++;			
+		} else {
+			x = -1;
+		}
+		return x;
+	};
 
 /*
 	Напишите функцию, которая принимает 1 аргумент(число),
 	и в случае если аргумент не Infinity или NaN возвращает строку 'safe' иначе 'danger'
 	*/
 	function testForSafeNumber (value) {
-		if (typeof value === 'number' && value===value && Math.abs(value)!==Infinity) {
+		if (typeof value === 'number' && !isNaN(value) && isFinite(value)) {
 			var x = 'safe';
 		} else {
 			var x = 'danger';
@@ -102,9 +104,7 @@
 	и возвращает массив из елементов строки разделенных по пробелу ' '
 	*/
 	function stringToArray (str) {
-		var x = String(str);
-		x = x.split(' ');
-		return x;
+		return String(str).split(' ');
 	}
 
 
@@ -113,9 +113,7 @@
 	и возвращает часть этой строки до первой запятой
 	*/
 	function getStringPart(str) {
-		var x = String(str);
-		x = x.split(',')[0];
-		return x;
+		return  String(str).split(',')[0];
 	}
 
 /*
