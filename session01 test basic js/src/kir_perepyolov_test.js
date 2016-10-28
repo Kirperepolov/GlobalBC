@@ -75,7 +75,7 @@
 	function increase (value) {
 		var x = value;
 		if (typeof value === 'number' && value===value) {
-			x++;			
+			x++;
 		} else {
 			x = -1;
 		}
@@ -122,17 +122,31 @@
 	false в противоположном случае
 	*/
 	function isSingleSymbolMatch(str, symbol) {
-		var check = 0;
-		var x = false;
-		for (var i=0; i<str.length;i++) {
-			if ((str[i] === symbol) && (typeof x !== 'number') && (check<1)) {
-				x = i;
-				check++;
-			} else if ((str[i] === symbol) && (check>0)) {
-				x = false;
-			};
+		// var check = 0;
+		// var x = false;
+		// for (var i=0; i<str.length;i++) {
+		// 	if ((str[i] === symbol) && (typeof x !== 'number') && (check<1)) {
+		// 		x = i;
+		// 		check++;
+		// 	} else if ((str[i] === symbol) && (check>0)) {
+		// 		x = false;
+		// 	};
+		// };
+		// return x;
+		var index = 0;
+		var counter = 0;
+		while (true) {
+			var foundPos = str.indexOf(symbol, index);
+			if (foundPos == -1) break;
+
+  		index = foundPos + 1; // перебір можилвих положень symbol
+			counter++;
 		};
-		return x;
+		if (counter === 1) {
+			return index-1;
+		} else {
+			return false;
+		};
 	}
 
 /*
@@ -166,7 +180,7 @@
 	Напишите функцию, которая принимает 1 массив,
 	и возвращает другой массив отсортированный от большего к меньшему
 	*/
-	function order (arr) {							//функція сортує лише дані типу "number", "string", "undefined"
+	function order (arr) {							//функція сортує дані типу "number", "string", "undefined"
 	var y = arr.concat();
 	for (var j=0;j<y.length;j++) {
 		for (var i=1;i<y.length;i++) {
@@ -189,15 +203,14 @@ return y;
 	и возвращает другой без чисел которые меньше 0
 	*/
 	function removeNegative (arr) {
-		var x = arr.concat();
-		for (var i=0;i<x.length;i++) {
-			if (x[i]<0) {
-				x.splice(i,1);
-					i--;						//для компенсації "зсуву" елементів масиву внаслідок видалення x[i]
-				};
+		var x = [];
+		for (var i=0;i<arr.length;i++) {
+			if (arr[i]>=0) {
+				x.push(arr[i]);
 			};
-			return x;
-		}
+		};
+		return x;
+	}
 
 /*
 	Напишите функцию, которая принимает 2 числовых массива,
@@ -206,13 +219,10 @@ return y;
 	[1,2,3], [1, 3] => [2]
 	*/
 	function without (arrA, arrB) {
-		var x = arrA.concat();
-		for (var i=0;i<x.length;i++) {
-			for (var j=0;j<arrB.length;j++) {
-				if (x[i] === arrB[j]) {
-					x.splice(i,1);
-					i--;						//для компенсації "зсуву" елементів масиву внаслідок видалення x[i]
-				};
+		var x = [];
+		for (var i=0;i<arrA.length;i++){
+			if (arrB.indexOf(arrA[i]) === -1) {
+				x.push(arrA[i]);
 			};
 		};
 		return x;
