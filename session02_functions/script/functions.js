@@ -12,7 +12,8 @@ function extractCharacters(str){
 
 function createLogger(prefix){
   return function(postfix){
-    return Date.toISOString + ' ' + prefix + ' '+ postfix;
+    var d = new Date();
+    return d.toISOString() + ' ' + prefix + ' '+ postfix;
   }
 }
 
