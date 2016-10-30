@@ -7,4 +7,13 @@ function extractCharacters(str){
       };
     };
     return a;
+};
+
+
+function createLogger(prefix){
+  return function(postfix){
+    return Date.toISOString + ' ' + prefix + ' '+ postfix;
+  }
 }
+
+var myLogger = createLogger('My Logger:');
