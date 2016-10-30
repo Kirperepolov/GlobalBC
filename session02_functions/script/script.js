@@ -1,5 +1,4 @@
-function extractCharacters(str){
-    str = str.toLowerCase();
-    var a = [];
-    for (var i=0;i<str.length;i++)
-}
+document.getElementById('actionStart').addEventListener('click',function(){
+  var input = document.getElementById('value1').value;
+  document.getElementById('output').innerHTML = extractCharacters(input);
+});
