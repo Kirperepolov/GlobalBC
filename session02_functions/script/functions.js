@@ -14,10 +14,18 @@ function extractCharacters(str){
 
 //session 02, task 2: a Logger function
 function createLogger(prefix){
-  return function(postfix){
+  return function(){
     var d = new Date();
-    console.log(d.toISOString() + ' ' + prefix + ' ' + postfix);
-    return d.toISOString() + ' ' + prefix + ' ' + postfix;
+    var result = d.toISOString() + ' ' + prefix;
+    for (var i in arguments) {
+      if (typeof arguments[i] === 'object') {
+        result += ' Object ' + JSON.stringify(arguments[i]);
+      } else {
+       result += ' ' + arguments[i];
+      };
+    };
+    console.log(result);
+    return result
   }
 }
 
@@ -57,7 +65,4 @@ function fahrenheitToCelsius(degree) {
 };
 
 // session 02, task 6:
-// the longest word
-function theLongestWord(str){
-
-};
+// the longest word is not completed yet
