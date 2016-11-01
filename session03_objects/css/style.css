@@ -1,0 +1,7 @@
+.field {
+  border: 1px solid #000;
+  width: auto;
+  min-height: 2em;
+  line-height: 2em;
+  padding: 3px;
+}
