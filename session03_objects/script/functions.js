@@ -33,9 +33,9 @@ var object02 = {
 console.log(compareObjects(object01,object02,'num1'));
 
 
-/**
-** ПОШУК УЛЮБЛЕНОЇ ПІСНІ
-**/
+/**                                                           **
+**                      ПОШУК УЛЮБЛЕНОЇ ПІСНІ                 **
+**                                                            **/
 //для отримання випадкового числа
 function randomizer(rank){
   return Math.round(Math.random()*rank);
@@ -74,3 +74,50 @@ function favoriteSong(obj){
   ' times and is supposed to be the favorite one. It\'s index is:' + index);
 };
 console.log(favoriteSong(songCollection));
+
+
+/**                                                           **
+**                      КЛАС КАЛЬКУЛЯТОР                      **
+**                                                            **/
+function Calculator(arr,index){
+  this.array = arr;
+  this.add = function(this.array){
+    var sum = 0;
+    for (var i=0;i<this.array.length;i++) {
+      if (typeof this.array[i] === 'number'&& !isNaN(this.array[i]) && isFinite(this.array[i])) {
+        sum += this.array[i];
+      };
+    };
+    return sum;
+  };
+  this.getCurrentSum = function(this.array,index){
+    var sumIndex = 0;
+    var i = 0;
+    for (var prop in obj) {
+      if (typeof this.array[i] === 'number'&& !isNaN(this.array[i]) && isFinite(this.array[i]) && (i<index||index === undefined)) {
+        sumIndex += obj[prop];
+        i++;
+      };
+    };
+    return sumIndex;
+  };
+};
+
+var objCalc1 = new Calculator();
+var objCalc2 = new Calculator();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//END
