@@ -81,33 +81,42 @@ console.log(favoriteSong(songCollection));
 **                                                            **/
 function Calculator(arr,index){
   this.array = arr;
-  this.add = function(this.array){
+  this.add = function(arr){
     var sum = 0;
-    for (var i=0;i<this.array.length;i++) {
-      if (typeof this.array[i] === 'number'&& !isNaN(this.array[i]) && isFinite(this.array[i])) {
-        sum += this.array[i];
+    for (var i=0;i<arr.length;i++) {
+      if (typeof arr[i] === 'number'&& !isNaN(arr[i]) && isFinite(arr[i])) {
+        sum += arr[i];
       };
     };
     return sum;
   };
-  this.getCurrentSum = function(this.array,index){
+  this.getCurrentSum = function(arr,index){
     var sumIndex = 0;
-    var i = 0;
-    for (var prop in obj) {
-      if (typeof this.array[i] === 'number'&& !isNaN(this.array[i]) && isFinite(this.array[i]) && (i<index||index === undefined)) {
-        sumIndex += obj[prop];
-        i++;
+    for (var i=0;i<arr.length;i++) {
+      if (typeof arr[i] === 'number'&& !isNaN(arr[i]) && isFinite(arr[i]) && (i<index||index === undefined)) {
+        sumIndex += arr[i];
       };
     };
     return sumIndex;
   };
 };
 
-var objCalc1 = new Calculator();
-var objCalc2 = new Calculator();
+var array1 = [3,8,11];
+var array2 = [5,12,17];
+
+var objCalc1 = new Calculator(array1);
+var objCalc2 = new Calculator(array2);
 
 
-
+console.log(
+  'Сумма всех чисел всех объектов: ' + (+objCalc1['add'](objCalc1.array) + +objCalc2['add'](objCalc2.array))
+);
+console.log(
+  'Сумма всех чисел всех объектов на втором шаге: ' + (+objCalc1['getCurrentSum'](objCalc1.array,2) + +objCalc2['getCurrentSum'](objCalc2.array,2))
+);
+console.log(
+  'Сумма для одного объекта после третьего шага: ' + (+objCalc1['getCurrentSum'](objCalc1.array,3) + ' и общая результирующая сумма: ' + objCalc1['add'](objCalc1.array))
+);
 
 
 
