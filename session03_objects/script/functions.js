@@ -50,23 +50,25 @@ function Songs(artist,name) {
 };
 
 //опис колекції пісень в одному об'єкті
-var songCollection = {};
-songCollection['song1'] = new Songs('Metallica','Fuel');
-songCollection['song2'] = new Songs('Gogol Bordello','Alcohol');
-songCollection['song3'] = new Songs('Limp Bizkit','Faith');
-songCollection['song4'] = new Songs('Nirvana','Son Of A Gun');
-songCollection['song5'] = new Songs('Vася Club','Авдєй');
+var songCollection = [];
+songCollection[0] = new Songs('Vася Club','Авдєй');
+songCollection[1] = new Songs('Metallica','Fuel');
+songCollection[2] = new Songs('Gogol Bordello','Alcohol');
+songCollection[3] = new Songs('Limp Bizkit','Faith');
+songCollection[4] = new Songs('Nirvana','Son Of A Gun');
 
 
-function favoriteSong(obj){
-  var result = 0;
-  var name, played, index;
-  for (var song in obj) {
-    if (obj[song].played>=result) {
-      result = obj[song]['played'];
-      name = obj[song]['artist'] +' - '+ obj[song]['name'];
-      played = obj[song]['played'];
-      index = obj[song]['refIndex'];
+function favoriteSong(arr){
+  var result = arr[0]['played'];
+  var name = arr[0]['artist'] +' - '+ arr[0]['name'];
+  var played = arr[0]['played'];
+  var index = arr[0]['refIndex'];
+  for (var i=1;i<arr.length;i++) {
+    if (arr[i].played>=result) {
+      result = arr[i]['played'];
+      name = arr[i]['artist'] +' - '+ arr[i]['name'];
+      played = arr[i]['played'];
+      index = arr[i]['refIndex'];
     };
   };
   //the string is too long to be placed in a single line
@@ -79,22 +81,27 @@ console.log(favoriteSong(songCollection));
 /**                                                           **
 **                      КЛАС КАЛЬКУЛЯТОР                      **
 **                                                            **/
-function Calculator(arr,index){
-  this.array = arr;
-  this.add = function(arr){
+function Calculator(arr){
+  var numbersArray = arr;
+  this.add = function(){
     var sum = 0;
-    for (var i=0;i<arr.length;i++) {
-      if (typeof arr[i] === 'number'&& !isNaN(arr[i]) && isFinite(arr[i])) {
-        sum += arr[i];
+    for (var i=0;i<numbersArray.length;i++) {
+      /**
+       *  this "if" can be missed, however it was stated to avoid possible
+       *  mistakes in inputs
+       */
+      if (typeof numbersArray[i] === 'number'&& !isNaN(numbersArray[i]) && isFinite(numbersArray[i])) {
+        sum += numbersArray[i];
       };
     };
     return sum;
   };
-  this.getCurrentSum = function(arr,index){
+  
+  this.getCurrentSum = function(index){
     var sumIndex = 0;
-    for (var i=0;i<arr.length;i++) {
-      if (typeof arr[i] === 'number'&& !isNaN(arr[i]) && isFinite(arr[i]) && (i<index||index === undefined)) {
-        sumIndex += arr[i];
+    for (var i=0;i<numbersArray.length;i++) {
+      if (typeof numbersArray[i] === 'number'&& !isNaN(numbersArray[i]) && isFinite(numbersArray[i]) && (i<index||index === undefined)) {
+        sumIndex += numbersArray[i];
       };
     };
     return sumIndex;
@@ -109,16 +116,18 @@ var objCalc2 = new Calculator(array2);
 
 
 console.log(
-  'Сумма всех чисел всех объектов: ' + (+objCalc1['add'](objCalc1.array) + +objCalc2['add'](objCalc2.array))
+  'Сумма всех чисел всех объектов: ' + (+objCalc1['add']() + +objCalc2['add']())
 );
 console.log(
-  'Сумма всех чисел всех объектов на втором шаге: ' + (+objCalc1['getCurrentSum'](objCalc1.array,2) + +objCalc2['getCurrentSum'](objCalc2.array,2))
+  'Сумма всех чисел всех объектов на втором шаге: ' + (+objCalc1['getCurrentSum'](2) + +objCalc2['getCurrentSum'](2))
 );
 console.log(
-  'Сумма для одного объекта после третьего шага: ' + (+objCalc1['getCurrentSum'](objCalc1.array,3) + ' и общая результирующая сумма: ' + objCalc1['add'](objCalc1.array))
+  'Сумма для одного объекта после третьего шага: ' + (+objCalc1['getCurrentSum'](3) + ' и общая результирующая сумма: ' + objCalc1['add']())
 );
 
-
+/**                                                           **
+**                             DEEP COPY                      **
+**                                                            **/
 
 
 
