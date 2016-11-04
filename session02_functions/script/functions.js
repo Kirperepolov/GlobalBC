@@ -41,11 +41,19 @@ var myLogger = createLogger('My Logger:');
 
  function createLogger2(prefix){
    return function(){
-    var argsArray = [];
-    for (var i = 0; i < arguments.length; i++) {
-      argsArray[i] = arguments[i];
-    };
-     
+    var d = new Date();
+    // var argsArray = [];
+    // for (var i = 0; i < arguments.length; i++) {
+    //   argsArray[i] = arguments[i];
+    // };
+    function logToConsole(array) {
+      for (var i = 0; i < array.length; i++) {
+        console.log(array[i]);
+      };
+    }
+    console.log(d.toISOString() + ' ' + prefix + ' ') + logToConsole(arguments);
+      ;
+
    };
  }
 

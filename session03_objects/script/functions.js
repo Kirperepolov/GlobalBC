@@ -129,10 +129,35 @@ console.log(
 **                             DEEP COPY                      **
 **                                                            **/
 
+function naiveDeepCopy( original )
+{
+    // First create an empty object with
+    // same prototype of our original source
+    var clone = Object.create(Object.getPrototypeOf(original));
+
+    var i;
+    var keys = Object.getOwnPropertyNames(original);
+
+    for (i = 0; i<keys.length; i++){
+
+        // copy each property into the clone
+        Object.defineProperty(clone, keys[i],
+            Object.getOwnPropertyDescriptor(original, keys[i])
+        );
+    }
+
+    return clone ;
+}
 
 
+function blabla( original )
+{
 
+    for (i = 0; i<keys.length; i++){
+                  console.log(Object.getOwnPropertyNames(original, keys[i]));
+    }
 
+}
 
 
 
