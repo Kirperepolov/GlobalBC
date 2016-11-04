@@ -96,7 +96,7 @@ function Calculator(arr){
     };
     return sum;
   };
-  
+
   this.getCurrentSum = function(index){
     var sumIndex = 0;
     for (var i=0;i<numbersArray.length;i++) {

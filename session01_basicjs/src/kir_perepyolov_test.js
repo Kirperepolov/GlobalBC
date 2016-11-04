@@ -29,7 +29,7 @@
 			case 'object':
 			if (variable === null) {
 				var x = 'primitive-special';
-			} else if (typeof variable.length === 'number') {
+			} else if (Array.isArray(variable)) {
 				var x = 'object-array';
 			} else {
 				var x = 'object';
@@ -122,17 +122,6 @@
 	false в противоположном случае
 	*/
 	function isSingleSymbolMatch(str, symbol) {
-		// var check = 0;
-		// var x = false;
-		// for (var i=0; i<str.length;i++) {
-		// 	if ((str[i] === symbol) && (typeof x !== 'number') && (check<1)) {
-		// 		x = i;
-		// 		check++;
-		// 	} else if ((str[i] === symbol) && (check>0)) {
-		// 		x = false;
-		// 	};
-		// };
-		// return x;
 		var index = 0;
 		var counter = 0;
 		while (true) {
@@ -203,12 +192,10 @@ return y;
 	и возвращает другой без чисел которые меньше 0
 	*/
 	function removeNegative (arr) {
-		var x = [];
-		for (var i=0;i<arr.length;i++) {
-			if (arr[i]>=0) {
-				x.push(arr[i]);
-			};
-		};
+		var x = arr.filter(function(number) {
+  		return number >= 0;
+			}
+		);
 		return x;
 	}
 

@@ -16,20 +16,43 @@ function extractCharacters(str){
 function createLogger(prefix){
   return function(){
     var d = new Date();
-    var result = d.toISOString() + ' ' + prefix;
-    for (var i in arguments) {
-      if (typeof arguments[i] === 'object') {
-        result += ' Object ' + JSON.stringify(arguments[i]);
-      } else {
-       result += ' ' + arguments[i];
-      };
-    };
-    console.log(result);
+    var result = d.toISOString() + ' ' + prefix + ' ' + arguments;
+    // for (var i in arguments) /**{
+    //   if (typeof arguments[i] === 'object') {
+    //     result += ' Object ' + JSON.stringify(arguments[i]);
+    //   } else**/ {
+    //    result += ' ' + arguments[i];
+    //   };
+    // //};
+    function logContext(){
+      console.log(arguments);
+    }
+    logContext.call(arguments, result);
     return result
   }
 }
 
 var myLogger = createLogger('My Logger:');
+
+
+/**
+ *
+ */
+
+ function createLogger2(prefix){
+   return function(){
+    var argsArray = [];
+    for (var i = 0; i < arguments.length; i++) {
+      argsArray[i] = arguments[i];
+    };
+     
+   };
+ }
+
+ var myLogger2 = createLogger2('My Logger:');
+
+
+
 
 // session 02, task 3:
 // a function that will take any number of arguments and return their sum.
@@ -38,7 +61,7 @@ function summarize() {
   for (var i=0;i<arguments.length;i++) {
     if (typeof arguments[i] === 'number') {
       result += arguments[i];
-    } else if ((typeof arguments[i] === 'object') && (arguments[i].length !== undefined)) {
+    } else if (Array.isArray(arguments[i])) {
       result += arguments[i].reduce(function(sum, current) {
         return sum + current;
       },0);
