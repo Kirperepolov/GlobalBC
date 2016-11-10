@@ -1,0 +1,3 @@
+function Model(properties) {
+	Object.assign(this, properties);
+}

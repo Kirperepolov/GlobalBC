@@ -1,0 +1,28 @@
+Model.prototype = {};
+
+var Animal = Model.extend({
+	report: function() {
+		console.log('I am animal');
+	}
+});
+
+
+var Rabbit = Animal.extend({
+	report: function() {
+		console.log('I am Rabbit');
+	}
+});
+
+var rabbit = new Rabbit();
+
+Model.extend = function(proto) {
+	var parent = this;
+	
+	function child() {
+		
+	}
+	
+	child.prototype = Object.create(parent.prototype, proto);
+	
+	return child;
+}

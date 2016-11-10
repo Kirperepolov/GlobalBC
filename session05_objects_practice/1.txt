@@ -1,0 +1,12 @@
+var shared = {
+	fun: function() {}
+}
+
+var o = {};
+
+o.prototype = shared;
+
+Object.setPrototypeOf(o, shared);
+
+o.constructor.prototype = shared;
+o.prototype = Object.create(shared);

@@ -1,0 +1,16 @@
+function Contstructor1() {
+	this.fun = function() {}
+}
+
+function Contstructor2() {
+	this.fun = function() {}
+}
+
+function Contstructor2() {
+	var o = {};
+	o.__proto__ = Contstructor2.prototype;
+	
+	this.fun = function() {}
+}
+
+Contstructor1.prototype = shared;

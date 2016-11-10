@@ -1,0 +1,23 @@
+o.prototype = shared;
+
+o.__proto__ = {fun:fn}
+
+o.prototype = Object.create(shared);
+
+o.prototype = {__proto__: shared};
+
+----------------------------------------------
+
+var shared = {
+	fun: function() {}
+}
+
+var o = {};
+
+o.prototype = shared;
+
+o.constructor.prototype = shared;
+
+
+
+

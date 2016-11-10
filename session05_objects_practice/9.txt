@@ -1,0 +1,9 @@
+var proto = {run: function() {}};
+
+function Constructor() {
+	
+};
+
+Constructor.prototype = proto;
+
+var o = new Constructor();

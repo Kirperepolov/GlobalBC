@@ -1,0 +1,17 @@
+function Model(properties) {
+	Object.assign(this, properties);
+}
+
+Model.extend = function(proto) {
+	
+	function child() {
+		
+	}
+	
+	child.prototype = Object.create(proto);
+	
+	return child;
+}
+
+var animal = new Animal();
+animal.report();

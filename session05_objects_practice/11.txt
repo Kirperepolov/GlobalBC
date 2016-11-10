@@ -1,0 +1,15 @@
+function foo() {}
+
+foo.surprise = function() {
+	console.log(this);
+}
+
+foo.surprise();
+
+var o = {
+	surprise = function() {
+		console.log(this);
+	}
+}
+
+o.surprise();

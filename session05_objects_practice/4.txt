@@ -1,0 +1,17 @@
+function O() {
+	this.__proto__ = O.prototype;
+}
+
+O.constructor === O; // true
+
+Object.hasOwnProperty(O.constructor); // false
+
+var o = new O();
+
+Object.hasOwnProperty(o.constructor); // false
+o.constructor; // O
+
+
+o.constructor.prototype = shared;
+
+var o1 = new O();
