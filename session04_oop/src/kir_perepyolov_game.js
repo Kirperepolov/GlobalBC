@@ -45,7 +45,7 @@ var maxMonsters = 2;
 var gameSpec = {
     status: ['Idle','In progress','Finished'], // string, current game status, "Idle" is the initial one
     hero: heroClasses, // object - hero object that is in game
-    monsters: Object.keys(monsterClasses)// array of monsters in game, max = maxMonsters
+    monsters: monsterClasses// array of monsters in game, max = maxMonsters
 }
 
 // створення ФК для героїв
