@@ -129,13 +129,10 @@ function Game(){
  *     "Cannot start journey, populate the world with hero and monsters first") - if smth went wrong
  */
 Game.prototype.beginJourney = function () {
-	//var i = gameSpec.status.indexOf(this.status);
 	if (this.status === 'Idle' &&
 			this.hero !== undefined &&
 			this.monsters.length===maxMonsters) {
-		//i++;
-		//this.status = gameSpec.status[i];
-		this.status = gameSpec.status[1];
+		this.status = 'In progress';
 		return 'Your journey has started, fight monsters';
 	} else {
 		throw new Error('Cannot start journey, populate the world with hero and monsters first');
@@ -148,7 +145,7 @@ Game.prototype.beginJourney = function () {
 //        "Don`t stop. Some monsters are still alive. Kill`em all" - if its not time yet
 Game.prototype.finishJourney = function () {
 	if (this.status === 'In progress' &&
-			this.monsters.every(elem=>(elem.life===0))) {
+			this.monsters.every(elem=>(elem.life===0))) {			//every monster is dead
 				this.status = 'Finished';
 				return "The Game is finished. Monsters are dead. Congratulations";
 			} else if (this.status === 'In progress' && this.hero.life === 0) {
@@ -166,6 +163,7 @@ Game.prototype.finishJourney = function () {
 // returns:
 //        "Hero created, welcome HERO_NAME" - if ok
 Game.prototype.addHero = function (heroClass) {
+	// this complex constructions is supposed to help if new hero classes appear
 	if (Object.keys(heroClasses).indexOf(heroClass.getCharClass().toLowerCase()) === -1){
 		throw new Error('Only hero instance can be hero');
 	} else if (this.hero !== undefined && this.hero !== null ){
@@ -183,6 +181,7 @@ Game.prototype.addHero = function (heroClass) {
 // returns:
 //        "Monster Created, MONSTER_CHARACTER_CLASS appeared in the world" - if ok
 Game.prototype.addMonster = function (monsterClass) {
+	// this complex constructions is supposed to help if new moster classes appear
 	if (
 		Object.keys(monsterClasses).indexOf(monsterClass.getCharClass().toLowerCase()) === -1		//check whether the provided monsterClass really belongs to monsters
 	) {
