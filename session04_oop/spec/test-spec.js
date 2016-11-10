@@ -246,7 +246,7 @@ describe('OOP in JavaScript', function() {
     it('Should not be possible to finish game, after all monsters are dead', function() {
       game.fight();
       var finishResult = game.finishJourney();
-      expect(finishResult).toEqual("The Game is finished. Monsetrs are dead. Congratulations");
+      expect(finishResult).toEqual("The Game is finished. Monsters are dead. Congratulations");
       expect(game.status).toBe("Finished")
     });
   });
