@@ -47,7 +47,7 @@ var gameSpec = {
     hero: heroClasses, // object - hero object that is in game
     monsters: monsterClasses// array of monsters in game, max = maxMonsters
 }
-function HeroSuper() {
+function GameChar() {
 	this.getCharClass = function(){return this.charClass;};
 	var charClass = this.charClass.toLowerCase();
 	this.attack = function(target){
@@ -74,7 +74,7 @@ function Hero(name, heroClass){
     };
 };
 // створення загальних методів в прототипі
-Hero.prototype.superclass = HeroSuper;
+Hero.prototype.superclass = GameChar;
 
 Hero.prototype.getName = function (){
 	return this.name;
@@ -102,7 +102,7 @@ function Monster(monsterClass) {
 	};
 };
 // створення загальних методів в прототипі
-Monster.prototype.superclass = HeroSuper;
+Monster.prototype.superclass = GameChar;
 
 Monster.prototype.getName = function (){
 	return 'I am ' + this.charClass + ' I don\`t have name';
