@@ -47,39 +47,6 @@ var gameSpec = {
     hero: heroClasses, // object - hero object that is in game
     monsters: monsterClasses// array of monsters in game, max = maxMonsters
 }
-function GameChar() {
-	this.getCharClass = function(){return this.charClass;};
-	var charClass = this.charClass.toLowerCase();
-	this.attack = function(target){
-		var generalAttackMessage;
-		if (~Object.keys(charClass).indexOf(target.getCharClass())) {
-			generalAttackMessage = "I will attack only monsters"
-		} else {
-			generalAttackMessage = "Hero attacked, " + attackCommon.call(this,target);
-		};
-		return  generalAttackMessage;
-	};
-
-}
-// створення ФК для героїв
-function Hero(name, heroClass){
-  if (Object.keys(heroClasses).indexOf(heroClass) !== -1) {
-		this.name = name;
-    this.charClass = heroClasses[heroClass]['charClass'];
-		this.life = heroClasses[heroClass]['life'];
-		this.damage = heroClasses[heroClass]['damage'];
-		this.superclass();
-  } else {
-		throw new Error("Incorrect character class provided");
-    };
-};
-// створення загальних методів в прототипі
-Hero.prototype.superclass = GameChar;
-
-Hero.prototype.getName = function (){
-	return this.name;
-};
-
 //Common attack function
 function attackCommon (target) {
 	target.life = target.life - this.damage;
@@ -90,13 +57,55 @@ function attackCommon (target) {
 		return target.getCharClass() +' killed';
 	};
 };
+// створення суперклас
+function GameChar(charClassVar,name) {
+	this.name = name;
+	if (~Object.keys(heroClasses).indexOf(charClassVar)){
+		this.charClass = heroClasses[charClassVar]['charClass'];
+		this.life = heroClasses[charClassVar]['life'];
+		this.damage = heroClasses[charClassVar]['damage'];
+	} else {
+		this.charClass = monsterClasses[charClassVar]['charClass'];
+		this.life = monsterClasses[charClassVar]['life'];
+		this.damage = monsterClasses[charClassVar]['damage'];
+	};
+
+
+
+}
+// створення ФК для героїв
+function Hero(name, heroClass){
+  if (Object.keys(heroClasses).indexOf(heroClass) !== -1) {
+
+		this.superclass(heroClass,name);
+  } else {
+		throw new Error("Incorrect character class provided");
+    };
+};
+// створення загальних методів в прототипі
+Hero.prototype.superclass = GameChar;
+
+Hero.prototype.getName = function (){
+	return this.name;
+};
+Hero.prototype.getCharClass = function(){return this.charClass;};
+// var charClass = this.charClass;
+// charClass = charClass.toLowerCase()
+Hero.prototype.attack = function(target){
+	var generalAttackMessage;
+	if (target instanceof Hero) {
+		generalAttackMessage = "I will attack only monsters"
+	} else {
+		generalAttackMessage = "Hero attacked, " + attackCommon.call(this,target);
+	};
+	return  generalAttackMessage;
+};
+
 // створення ФК для монстрів
 function Monster(monsterClass) {
   if (Object.keys(monsterClasses).indexOf(monsterClass) !== -1) {
-		this.charClass = monsterClasses[monsterClass]['charClass'];
-		this.life = monsterClasses[monsterClass]['life'];
-		this.damage = monsterClasses[monsterClass]['damage'];
-		this.superclass();
+
+		this.superclass(monsterClass);
 	} else {
 		throw new Error("Incorrect character class provided");
 	};
@@ -107,7 +116,17 @@ Monster.prototype.superclass = GameChar;
 Monster.prototype.getName = function (){
 	return 'I am ' + this.charClass + ' I don\`t have name';
 };
-
+Monster.prototype.getCharClass = function(){return this.charClass;};
+// var charClass = this.charClass.toLowerCase();
+Monster.prototype.attack = function(target){
+	var generalAttackMessage;
+	if (target instanceof Monster) {
+		generalAttackMessage = "I will not attack only monsters"
+	} else {
+		generalAttackMessage = "Hero attacked, " + attackCommon.call(this,target);
+	};
+	return  generalAttackMessage;
+};
 
 // GAME Creation
 function Game(){
