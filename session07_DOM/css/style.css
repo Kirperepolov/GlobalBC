@@ -17,7 +17,7 @@ body {
   line-height: 38px;
   align-self: auto;
 }
-.field {
+.battle-field {
   border: 1px solid #000;
   box-sizing: content-box;
   width: 420px;
@@ -26,9 +26,10 @@ body {
   margin: 20px auto;
   padding: 2px 0;
 }
-.block,
-#emptyBlock {
-  border: 1px solid #333;
+.block {
+  border: 1px solid #007399;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px #007399;
   box-sizing: border-box;
   width: 100px;
   height: 100px;
@@ -42,7 +43,7 @@ body {
 }
 #emptyBlock {
   border-color: transparent;
-  opacity: 0.2;
+  opacity: 0;
 }
 .statistics {
   border: 1px solid #000;
