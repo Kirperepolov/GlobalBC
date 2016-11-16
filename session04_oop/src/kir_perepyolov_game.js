@@ -76,27 +76,37 @@ GameChar.prototype.getName = function (){
 	return this.name;
 };
 //Common attack function
-GameChar.prototype.attackCommon = function(target) {
-	target.life = target.life - this.damage;
-	if (target.life>0) {
-		return 'done ' + this.damage + ' damage to ' + target.getCharClass();
-	} else {
-		target.life = 0;
-		return target.getCharClass() +' killed';
-	};
+// GameChar.prototype.attackCommon = function(target) {
+// 	target.life = target.life - this.damage;
+// 	if (target.life>0) {
+// 		return 'done ' + this.damage + ' damage to ' + target.getCharClass();
+// 	} else {
+// 		target.life = 0;
+// 		return target.getCharClass() +' killed';
+// 	};
+// };
+//
+// GameChar.prototype.attack = function(target){
+// 	var generalAttackMessage;
+// 	if ((this instanceof Hero) && (target instanceof Hero)) {
+// 		generalAttackMessage = "I will attack only monsters"
+// 	} else if ((this instanceof Monster) && (target instanceof Monster)) {
+// 		generalAttackMessage = "I will not attack monsters"
+// 	} else {
+// 		generalAttackMessage = "Hero attacked, " + this.attackCommon(target);
+// 	};
+// 	return  generalAttackMessage;
+// };
+GameChar.prototype.generalAttack = function(target){
+  if (target.life>this.damage) {
+    target.life=target.life-this.damage;
+    return "done "+this.damage+" damage to " + target.getCharClass();
+  } else {
+    target.life=0;
+    return target.getCharClass() + ' killed';
+  };
 };
 
-GameChar.prototype.attack = function(target){
-	var generalAttackMessage;
-	if ((this instanceof Hero) && (target instanceof Hero)) {
-		generalAttackMessage = "I will attack only monsters"
-	} else if ((this instanceof Monster) && (target instanceof Monster)) {
-		generalAttackMessage = "I will not attack monsters"
-	} else {
-		generalAttackMessage = "Hero attacked, " + this.attackCommon(target);
-	};
-	return  generalAttackMessage;
-};
 // створення ФК для героїв
 function Hero(name, heroClass){
   if (~Object.keys(heroClasses).indexOf(heroClass)) {
@@ -107,7 +117,15 @@ function Hero(name, heroClass){
 };
 Hero.prototype = Object.create(GameChar.prototype);
 Hero.prototype.superclass = GameChar;
-
+Hero.prototype.attack = function(target){
+  var generalAttackMessage;
+  if (target instanceof Hero) {
+    generalAttackMessage = "I will attack only monsters"
+  } else {
+    generalAttackMessage = "Hero attacked, " + this.superclass.prototype.generalAttack.apply(this,[target]);
+    return  generalAttackMessage;
+  };
+};
 // створення ФК для монстрів
 function Monster(monsterClass) {
   if (~Object.keys(monsterClasses).indexOf(monsterClass)) {
@@ -121,6 +139,15 @@ Monster.prototype = Object.create(GameChar.prototype);
 Monster.prototype.superclass = GameChar;
 Monster.prototype.getName = function (){
 	return 'I am ' + this.charClass + ' I don\`t have name';
+};
+Monster.prototype.attack = function(target){
+  var generalAttackMessage;
+  if (target instanceof Monster) {
+    generalAttackMessage = "I will attack only hero"
+  } else {
+    generalAttackMessage = "Monster attacked, " + this.superclass.prototype.generalAttack.apply(this,[target]);
+    return  generalAttackMessage;
+  };
 };
 // GAME Creation
 function Game(){
