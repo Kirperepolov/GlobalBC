@@ -47,71 +47,81 @@ var gameSpec = {
     hero: heroClasses, // object - hero object that is in game
     monsters: monsterClasses// array of monsters in game, max = maxMonsters
 }
+//Common attack function
+function attackCommon (target) {
+	target.life = target.life - this.damage;
+	if (target.life>0) {
+		return 'done ' + this.damage + ' damage to ' + target.getCharClass();
+	} else {
+		target.life = 0;
+		return target.getCharClass() +' killed';
+	};
+};
+// створення суперклас
+function GameChar(charClassVar,name) {
+	if (~Object.keys(heroClasses).indexOf(charClassVar)){
+		this.name = name;
+		this.charClass = heroClasses[charClassVar]['charClass'];
+		this.life = heroClasses[charClassVar]['life'];
+		this.damage = heroClasses[charClassVar]['damage'];
+	} else {
+		this.charClass = monsterClasses[charClassVar]['charClass'];
+		this.life = monsterClasses[charClassVar]['life'];
+		this.damage = monsterClasses[charClassVar]['damage'];
+	};
+}
+// створення загальних методів в прототипі суперкласу
+GameChar.prototype.getCharClass = function(){return this.charClass;};
+GameChar.prototype.getName = function (){
+	return this.name;
+};
+//Common attack function
+GameChar.prototype.attackCommon = function(target) {
+	target.life = target.life - this.damage;
+	if (target.life>0) {
+		return 'done ' + this.damage + ' damage to ' + target.getCharClass();
+	} else {
+		target.life = 0;
+		return target.getCharClass() +' killed';
+	};
+};
 
+GameChar.prototype.attack = function(target){
+	var generalAttackMessage;
+	if ((this instanceof Hero) && (target instanceof Hero)) {
+		generalAttackMessage = "I will attack only monsters"
+	} else if ((this instanceof Monster) && (target instanceof Monster)) {
+		generalAttackMessage = "I will not attack monsters"
+	} else {
+		generalAttackMessage = "Hero attacked, " + this.attackCommon(target);
+	};
+	return  generalAttackMessage;
+};
 // створення ФК для героїв
 function Hero(name, heroClass){
-  if (Object.keys(heroClasses).indexOf(heroClass) !== -1) {
-		this.name = name;
-    this.heroClass = heroClasses[heroClass]['charClass'];
-		this.life = heroClasses[heroClass]['life'];
-		this.damage = heroClasses[heroClass]['damage'];
+  if (~Object.keys(heroClasses).indexOf(heroClass)) {
+		this.superclass(heroClass,name);
   } else {
 		throw new Error("Incorrect character class provided");
     };
 };
-// створення загальних методів в прототипі
-Hero.prototype.getCharClass = function(){
-	return this.heroClass;
-};
-Hero.prototype.getName = function (){
-	return this.name;
-};
-Hero.prototype.attack = function(target){
-	if (target.getCharClass() === ('warrior' && 'rogue' && 'sorcerer')) {
-		return "I will attack only monsters"
-	} else {
-		target.life = target.life - this.damage;
-		if (target.life>0) {
-			var generalAttackMessage = 'done ' + this.damage + ' damage to ' + target.getCharClass();
-		} else {
-			target.life = 0;
-			var generalAttackMessage = target.getCharClass() +' killed';
-		};
-		return "Hero attacked, " + generalAttackMessage;
-	};
-};
+Hero.prototype = Object.create(GameChar.prototype);
+Hero.prototype.superclass = GameChar;
+
 // створення ФК для монстрів
 function Monster(monsterClass) {
-  if (Object.keys(monsterClasses).indexOf(monsterClass) !== -1) {
-		this.monsterClass = monsterClasses[monsterClass]['charClass'];
-		this.life = monsterClasses[monsterClass]['life'];
-		this.damage = monsterClasses[monsterClass]['damage'];
+  if (~Object.keys(monsterClasses).indexOf(monsterClass)) {
+		this.superclass(monsterClass);
 	} else {
 		throw new Error("Incorrect character class provided");
 	};
 };
 // створення загальних методів в прототипі
-Monster.prototype.getCharClass = function(){
-	return this.monsterClass;
-};
+Monster.prototype = Object.create(GameChar.prototype);
+Monster.prototype.superclass = GameChar;
 Monster.prototype.getName = function (){
-	return 'I am ' + this.monsterClass + ' I don\`t have name';
+	return 'I am ' + this.charClass + ' I don\`t have name';
 };
-Monster.prototype.attack = function(target){
-	if (target.getCharClass() === 'warrior') {
-		return "I will attack only monsters"
-	} else {
-		target.life = target.life - this.damage;
-		if (target.life>0) {
-			var generalAttackMessage = 'done ' + this.damage + ' damage to ' + target.getCharClass();
-		} else {
-			target.life = 0;
-			var generalAttackMessage = target.getCharClass() +' killed';
-		};
-		return "Hero attacked, " + generalAttackMessage;
-	};
-};
-
 // GAME Creation
 function Game(){
 	this.status = gameSpec.status[0];
@@ -164,13 +174,13 @@ Game.prototype.finishJourney = function () {
 //        "Hero created, welcome HERO_NAME" - if ok
 Game.prototype.addHero = function (heroClass) {
 	// this complex constructions is supposed to help if new hero classes appear
-	if (Object.keys(heroClasses).indexOf(heroClass.getCharClass().toLowerCase()) === -1){
-		throw new Error('Only hero instance can be hero');
-	} else if (this.hero !== undefined && this.hero !== null ){
+	if (this.hero !== undefined){
 		throw new Error('Only one hero can exist');
-	} else {
+	} else if (heroClass instanceof Hero){
 		this.hero = heroClass;
 		return 'Hero created, welcome ' + this.hero.getName();
+	} else {
+		throw new Error('Only hero instance can be hero');
 	}
 };
 // adds monster to game.monsters array
@@ -182,15 +192,13 @@ Game.prototype.addHero = function (heroClass) {
 //        "Monster Created, MONSTER_CHARACTER_CLASS appeared in the world" - if ok
 Game.prototype.addMonster = function (monsterClass) {
 	// this complex constructions is supposed to help if new moster classes appear
-	if (
-		Object.keys(monsterClasses).indexOf(monsterClass.getCharClass().toLowerCase()) === -1		//check whether the provided monsterClass really belongs to monsters
-	) {
-		throw new Error('Only monster Instances can become monsters');
-	} else if (this.monsters.length === maxMonsters) {
+	if (this.monsters.length === maxMonsters) {
 		throw new Error('Only 2 monsters can exist');
-	} else {
+	} else if (monsterClass instanceof Monster) {
 		this.monsters.push(monsterClass);
 		return "Monster Created, "+ monsterClass.getCharClass() +" appeared in the world";
+	} else {
+		throw new Error('Only monster Instances can become monsters');
 	};
 };
 // Initiate a battle between hero and monster, one after another, they should attack each other, starting from hero,
@@ -219,34 +227,3 @@ Game.prototype.fight = function () {
 	};
 	return result;
 };
-// MY OWN FIGHTING MECHANISM
-// with fighting both monsters in random order
-/**
-Game.prototype.fight = function () {
-	if (this.status !== 'In progress') {
-		throw new Error('Begin your journey to start fighting monsters');
-	} else if (this.hero.life !== 0 &&
-		this.monsters.every(elem=>(elem.life!==0))) {
-			//pick a random monster
-			var index = Math.floor(Math.random() * this.monsters.length);
-			//start a battle set
-			this.hero.attack(this.monsters[index]);
-			this.monsters[index].attack(this.hero);
-			this.fight();
-		} else if (this.hero.life !== 0 &&
-			this.monsters[1].life!==0) {
-				this.hero.attack(this.monsters[1]);
-				this.monsters[1].attack(this.hero);
-				this.fight();
-		} else if (this.hero.life !== 0 &&
-			this.monsters[0].life!==0) {
-				this.hero.attack(this.monsters[0]);
-				this.monsters[0].attack(this.hero);
-				this.fight();
-		} else if (this.hero.life === 0) {
-			return 'Monster win';
-		} else if (this.monsters.every(elem=>(elem.life === 0))) {
-			return 'Hero win';
-		}
-};
-*/
