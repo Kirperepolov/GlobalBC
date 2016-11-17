@@ -66,9 +66,9 @@ function inserAfter(newElement, referenceElement){
 Чтение.
 Что имеется в виду - Допустим есть элемент:
 
-<titanic style="float:none"></titanic>
+<titanic style="floor:none"></titanic>
 
-Если передать в функцию 'style' - она должна выдать "float:none"
+Если передать в функцию 'style' - она должна выдать "floor:none"
 
 <ninja color="black" visibility="hidden"></ninja>
 
@@ -102,7 +102,7 @@ function attributeFunc(elem,attrName,attrVal){
 /*
 4. С помощью JS создайте шахматное поле:
 - контейнер поля
-- 64 ребёнка (ячейки) элементы (проще позиционировать с помощью float)
+- 64 ребёнка (ячейки) элементы (проще позиционировать с помощью floor)
 - ячейки раскрашены белым и черным
 - нужные атрибуты и стили задавайте с помощью JS
 */
@@ -130,9 +130,9 @@ function createChess(){
 
 /**
 5. Реализовать игру Пятнашки. (Пример - http://scanvord.net/pyatnashki/)
-    - контейнер поля <div class=“battle-field”></div>
+- контейнер поля <div class=“battle-field”></div>
 - c помощью JS создать ячейки 1..15
-    - назначить необходимые обработчики событий
+- назначить необходимые обработчики событий
 */
 function create15(){
   var field = document.createElement('div');
@@ -142,6 +142,8 @@ function create15(){
   startButton.setAttribute("type", "button");
   startButton.id = 'actionStart';
   startButton.setAttribute("value", "Start!");
+  startButton.addEventListener('click', startBlockGame);
+
 
   var gameField = document.createElement('div');
   gameField.className = 'battle-field';
@@ -167,6 +169,13 @@ function create15(){
       block.innerText = i;
       block.id = 'id'+i;
       gameField.appendChild(block);
+      /*
+      * it is possible to add listener to the whole gameField and
+      * use event.target instead of this in function blockGame(),
+      * but it makes the code more complex
+      */
+      block.addEventListener('click',blockGame);
+
     };
     var block = document.createElement('div');
     block.className = 'block';
@@ -183,22 +192,185 @@ document.addEventListener("DOMContentLoaded", create15());
 // document.getElementById('actionStart').addEventListener('click', createBlocks());
 
 // CHESSGAME
-// to set EventListeners on all the game blocks
-for (var i=1;i<=15;i++) {
-  var gameBlock = document.getElementById('id'+i);
-  gameBlock.onclick = blockGame;
-};
 
 function blockGame(){
   // console.log(this);
+
+  var index = 0;
+
   var emptyBlock = document.getElementById("emptyBlock");
   var steps = +document.getElementById('steps').textContent;
+  var gameField = document.getElementById('game');
+
+  var nodeIterator = document.createNodeIterator(
+    gameField,
+    NodeFilter.SHOW_ELEMENT,
+    function(node) {
+      return (node.nodeType === 1) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  );
+  while (this !== nodeIterator.nextNode()) {index++};
+
+  function changeAbove(){
+    gameField.replaceChild(this,emptyBlock);
+    gameField.insertBefore(emptyBlock,gameField.children[index-1]);
+  };
   if (this.nextElementSibling === emptyBlock) {
-    this.parentNode.insertBefore(emptyBlock,this);
+    gameField.insertBefore(emptyBlock,this);
     steps++;
   } else if (this.previousElementSibling === emptyBlock) {
-    this.parentNode.insertBefore(this,emptyBlock);
+    gameField.insertBefore(this,emptyBlock);
     steps++;
-  };  
+  } else if (index<12) {
+    var i=0;
+    while (i<4) {nodeIterator.nextNode(); i++};
+    if (nodeIterator.referenceNode === emptyBlock) {
+      changeAbove.call(this);
+      steps++;
+    } else {
+      i=8;
+      while (i>=0) {nodeIterator.previousNode(); i--};
+      if (nodeIterator.referenceNode === emptyBlock) {
+        changeAbove.call(this);
+        steps++;
+      };
+    };
+  } else {
+    i=4;
+    while (i>=0) {nodeIterator.previousNode(); i--};
+    if (nodeIterator.referenceNode === emptyBlock) {
+      changeAbove.call(this);
+      steps++;
+    };
+  };
   document.getElementById('steps').textContent = steps;
 };
+
+function startBlockGame() {
+  for (var i=0;i<100;i++){
+    mixBlocks();
+  };
+  document.getElementById('steps').textContent=0;
+};
+
+function mixBlocks(){
+  // for (var i=0;i<100;i++) {
+  //   var randomBlockIndex = Math.floor(Math.random()*16);
+  //   blockGame.call(document.getElementById('id'+randomBlockIndex));
+  // };
+  var emptyBlock = document.getElementById("emptyBlock");
+  var gameField = document.getElementById('game');
+  var nodeIterator = document.createNodeIterator(
+    gameField,
+    NodeFilter.SHOW_ELEMENT,
+    function(node) {
+      return (node.nodeType === 1) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  );
+
+  var index = 0;
+  while (nodeIterator.nextNode() !== emptyBlock) {index++};
+  function neibRigth(){
+    gameField.insertBefore(emptyBlock.nextElementSibling,emptyBlock);
+  };
+  function neibBottom(){
+    var i=0;
+    while (i<4) {nodeIterator.nextNode(); i++};
+    gameField.replaceChild(nodeIterator.referenceNode,emptyBlock);
+    gameField.insertBefore(emptyBlock,gameField.children[index+i-1]);
+    // while (i>=0) {nodeIterator.previousNode(); i--};
+  };
+  function neibLeft() {
+    gameField.insertBefore(emptyBlock,emptyBlock.previousElementSibling);
+  };
+  function neibTop() {
+    var i=0;
+    while (i<4) {nodeIterator.previousNode(); i++};
+    gameField.replaceChild(nodeIterator.referenceNode,emptyBlock);
+    gameField.insertBefore(emptyBlock,gameField.children[index-i-1]);
+  };
+
+  if (index<=1){
+    switch (Math.floor(Math.random()*2)){
+      case (0):
+      neibRigth();
+      break;
+
+      case (1):
+      neibBottom();
+      break;
+    };
+  } else if (index<5){
+    switch (Math.floor(Math.random()*3)){
+      case (0):
+      neibRigth();
+      break;
+
+      case (1):
+      neibBottom();
+      break;
+
+      case (2):
+      neibLeft();
+      break;
+    };
+  } else if (index<13) {
+    switch (Math.floor(Math.random()*4)){
+      case (0):
+      neibRigth();
+      break;
+
+      case (1):
+      neibBottom();
+      break;
+
+      case (2):
+      neibLeft();
+      break;
+
+      case (3):
+      neibTop();
+      break;
+    };
+  } else if (index<16){
+    switch (Math.floor(Math.random()*3)){
+      case (0):
+      neibRigth();
+      break;
+
+      case (1):
+      neibLeft();
+      break;
+
+      case (2):
+      neibTop();
+      break;
+    };
+  } else {
+    switch (Math.floor(Math.random()*2)){
+      case (0):
+      neibTop();
+      break;
+
+      case (1):
+      neibLeft();
+      break;
+    };
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Code end
+ */
