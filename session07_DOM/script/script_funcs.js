@@ -153,7 +153,7 @@ function create15(){
   statistics.className = 'statistics';
 
   var scoreBlock = document.createElement('div');
-  scoreBlock.id = 'max-score';
+  scoreBlock.textContent = 'Steps done:';
 
   var stepsBlock = document.createElement('div');
   stepsBlock.id = 'steps';
@@ -372,5 +372,5 @@ function mixBlocks(){
 
 
 /**
- * Code end
- */
+* Code end
+*/
