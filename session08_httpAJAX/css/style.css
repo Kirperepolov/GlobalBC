@@ -14,7 +14,6 @@ body {
 }
 h1, h2 {
   color: #fff;
-  text-align: center;
   font-family: Starjedi, Verdana;
 }
 h3 {
@@ -42,6 +41,7 @@ h3 {
   font-size: 1.4em;
   background-color: #e3e5e8;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 .infoBlock:after{
 	clear: both;
@@ -63,19 +63,25 @@ h3 {
   list-style: none;
   padding-left: 2px;
 }
-/*p::first-letter {
-  text-transform: uppercase;
-}*/
-#charSuplData,
-#charFilms {
-  font-size: 0.8em;
-
-}
 .infoBlock ul>li:hover{
   text-decoration: underline;
   cursor: pointer;
 }
-
+.navButtons {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  border: 1px solid #9da5af;
+  border-radius: 5px;
+}
+.navButtons div {
+  flex-grow: 1;
+  border: 1px solid #9da5af;
+  box-sizing:border-box;
+}
 /*
  *  FOOTER
  */

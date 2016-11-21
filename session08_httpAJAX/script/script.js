@@ -28,7 +28,7 @@ function loadData(path){
   .then(function(response) {return response.json()})
   .then(function(json){
     createMainContainer(json);
-
+    getCharPhoto(json)
     getCharInfo(json);
     getSuplData(json);
   });
@@ -40,6 +40,7 @@ function createMainContainer(obj){
   container.innerHTML = null;
   var charHeader = document.createElement('h2');
   charHeader.id='charHeader';
+  charHeader.className='text-center';
   var title;
   if (~obj['url'].indexOf('planet')) {
     title = 'Planet '+ obj['name'];
@@ -79,13 +80,54 @@ function getCharInfo(obj){
 
 function getCharPhoto(obj) {
   var infoBlock = document.querySelector('.infoBlock');
-  var charPic = document.createElement('div');
+  var charPic = document.createElement('img');
   charPic.id='charPic';
-  obj.lenght
+  charPic.className='text-center';
+  charPic.setAttribute('src','images/SW_logo_300.jpg');
+  var navButtons = document.createElement('div');
+  navButtons.className='text-center navButtons';
+  var navButtonBack = document.createElement('div');
+  navButtonBack.id='navButtonBack';
+  navButtonBack.textContent = 'Prev';
+  var navButtonForw = document.createElement('div');
+  navButtonForw.id='navButtonForw';
+  navButtonForw.textContent = 'Next';
+  var arrURL = obj['url'].split('/');
+  var linkBack = arrURL[0];
+  var linkForward = arrURL[0];
+
+  for (var i=1;i<arrURL.length;i++){
+    if (i === 5){arrURL[i] = +arrURL[i]-1};
+    linkBack += '\/' + arrURL[i];
+  };
+  for (var i=1;i<arrURL.length;i++){
+    if (i === 5){arrURL[i] +=2};
+    linkForward += '\/' + arrURL[i];
+  };
+  fetch(linkBack)
+  .then(resp=>resp.json())
+  .then(function(obj){
+    navButtonBack.addEventListener('click',function(){loadData(obj.url)});
+    navButtons.appendChild(navButtonBack);
+  })
+  .catch(function(){
+    navButtonBack.className='hidden'
+  });
+  fetch(linkForward)
+  .then(resp=>resp.json())
+  .then(function(obj){
+    navButtonBack.addEventListener('click',function(){loadData(obj.url)});
+    navButtons.appendChild(navButtonForw);
+  })
+  .catch(function(){
+    navButtonBack.className='hidden'
+  });
+
   // var infoLine = document.createElement('p');
   // infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
   // charInfo.appendChild(infoLine);
   infoBlock.appendChild(charPic);
+  infoBlock.appendChild(navButtons);
 };
 
 function getSuplData(obj){
