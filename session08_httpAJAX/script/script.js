@@ -27,126 +27,111 @@ function loadData(path){
   fetch(path)
   .then(function(response) {return response.json()})
   .then(function(json){
-    createMainContainer(json,path);
+    createMainContainer(json);
+
     getCharInfo(json);
-    getFilms(json);
     getSuplData(json);
   });
 }
 
 
-function createMainContainer(obj,path){
+function createMainContainer(obj){
   var container = document.getElementsByClassName('container')[0];
   container.innerHTML = null;
   var charHeader = document.createElement('h2');
   charHeader.id='charHeader';
   var title;
-  if (~path.indexOf('planet')) {
-    title = 'Planet ';
-  } else if (~path.indexOf('starships')){
-    title = 'Starship ';
-  } else {
-    title = null;
+  if (~obj['url'].indexOf('planet')) {
+    title = 'Planet '+ obj['name'];
+  } else if (~obj['url'].indexOf('starships')){
+    title = 'Starship '+ obj['name'];
+  } else if (obj.episode_id) {
+    title = 'Episode ' + obj.episode_id + ': '+ obj.title;
   };
-  charHeader.textContent = title ? title + obj['name'] : obj['name'];
-
+  charHeader.textContent = title ? title : obj['name'];
   var infoBlock = document.createElement('div');
   infoBlock.className='infoBlock';
-  var charPic = document.createElement('div');
-  charPic.id='charPic';
-  var charInfo = document.createElement('div');
-  charInfo.id='charInfo';
-  // var lineBrake = document.createElement('br');
-  var charFilms = document.createElement('div');
-  charFilms.id='charFilms';
-  var charSuplData = document.createElement('div');
-  charSuplData.id='charSuplData';
-  infoBlock.appendChild(charPic);
-  infoBlock.appendChild(charInfo);
-  infoBlock.appendChild(charFilms);
-  infoBlock.appendChild(charSuplData);
   container.appendChild(charHeader);
-  // container.appendChild(lineBrake);
   container.appendChild(infoBlock);
 };
 
 function getCharInfo(obj){
-  var charInfo = document.getElementById('charInfo');
-  for (key in obj) {
+  var infoBlock = document.querySelector('.infoBlock');
+  var charInfo = document.createElement('div');
+  charInfo.id='charInfo';
+  charInfo.className='col-sm-4';
+    for (key in obj) {
     if (typeof obj[key] !== 'object' &&
     key !== 'created' &&
     key !== 'edited' &&
     key !== 'url' &&
-    key !== 'homeworld') {
+    key !== 'homeworld' &&
+    key !== 'episode_id' &&
+    key !== 'title') {
       var infoLine = document.createElement('p');
-      infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
+      var stingName = key.charAt(0).toUpperCase() + key.slice(1);
+      infoLine.textContent = stingName.replace("_", " ") +'\: '+ obj[key];
       charInfo.appendChild(infoLine);
+    };
+  };
+  infoBlock.appendChild(charInfo);
+};
+
+function getCharPhoto(obj) {
+  var infoBlock = document.querySelector('.infoBlock');
+  var charPic = document.createElement('div');
+  charPic.id='charPic';
+  obj.lenght
+  // var infoLine = document.createElement('p');
+  // infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
+  // charInfo.appendChild(infoLine);
+  infoBlock.appendChild(charPic);
+};
+
+function getSuplData(obj){
+  var infoBlock = document.querySelector('.infoBlock');
+  var linksArray=[];
+  var articleTitle;
+  for (var key in obj) {
+    if (obj[key]==='homeworld') {
+      linksArray.push(obj.homeworld);
+      articleTitle = key.charAt(0).toUpperCase() + key.slice(1);;
+      loadSupplementaryData(linksArray,articleTitle,infoBlock);
+    } else if (Array.isArray(obj[key]) &&
+                obj[key].length !== 0) {
+      linksArray = obj[key];
+      articleTitle = key;
+      loadSupplementaryData(linksArray,articleTitle,infoBlock);
     };
   };
 };
 
-function getCharPhoto(obj) {
-  var charPic = document.getElementById('charPic');
-  // var infoLine = document.createElement('p');
-  // infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
-  // charInfo.appendChild(infoLine);
-};
-
-function getSuplData(obj){
-  var charSuplData = document.getElementById('charSuplData');
-  var infoTitle = document.createElement('h3');
-  var linksArray=[];
-  if (obj.residents) {
-    infoTitle.textContent = 'Residents';
-    charSuplData.appendChild(infoTitle);
-    linksArray = obj.residents;
-  } else if (obj.homeworld){
-    infoTitle.textContent = 'Homeworld';
-    charSuplData.appendChild(infoTitle);
-    linksArray.push(obj.homeworld);
-  } else if (obj.pilots) {
-    infoTitle.textContent = 'Pilots';
-    charSuplData.appendChild(infoTitle);
-    linksArray = obj.pilots;
-  } else if (obj.planets){
-    infoTitle.textContent = 'Planets';
-    charSuplData.appendChild(infoTitle);
-    linksArray = obj.planets;
-  };
-  loadSupplementaryData(linksArray,charSuplData);
-};
-
-function getFilms(obj){
-  var charFilms = document.getElementById('charFilms');
-  var filmTitle = document.createElement('h3');
-  var linksArray=[];
-  if (obj.films) {
-    filmTitle.textContent = 'Movies';
-    charFilms.appendChild(filmTitle);
-    linksArray = obj.films;
-  } else if (obj.starships){
-    filmTitle.textContent = 'Starships';
-    charFilms.appendChild(filmTitle);
-    linksArray = obj.starships;
-  };
-  loadSupplementaryData(linksArray,charFilms);
-};
-/* i've decided to define a separate function to download "links" and
+/* i've decided to define a separate function for downloading "links" and
 * to use it for any appropriate case
 */
-function loadSupplementaryData(arr,division){
+function loadSupplementaryData(arr,title,division){
+  var charSuplData = document.createElement('div');
+  var infoTitle = document.createElement('h3');
+  infoTitle.textContent=title;
   var list = document.createElement('ul');
-  division.appendChild(list);
+  charSuplData.appendChild(infoTitle);
+  charSuplData.appendChild(list);
+  charSuplData.className='col-sm-4';
+  division.appendChild(charSuplData);
   for (var key in arr) {
     fetch(arr[key])
     .then(resp=>resp.json())
-    .then(function(json){
+    .then(function(obj){
       var infoLink = document.createElement('li');
+      var path = obj['url'];
       infoLink.addEventListener('click',function(){
-        var path = arr[key];
-        loadData(path)
+        loadData(path);
       });
-      infoLink.textContent = json.name?json.name:json.title;
+      if (obj.episode_id) {
+        var listItemTitle = 'Episode ' + obj.episode_id + ': '
+      };
+      var listItemValue = obj.name?obj.name:obj.title;
+      infoLink.textContent = listItemTitle ? listItemTitle + listItemValue :listItemValue;
       list.appendChild(infoLink);
     })
   };

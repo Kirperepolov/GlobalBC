@@ -12,7 +12,7 @@ body {
   background-color: #000;
   color: #00004d;
 }
-h1, h2, h3 {
+h1, h2 {
   color: #fff;
   text-align: center;
   font-family: Starjedi, Verdana;
@@ -20,8 +20,8 @@ h1, h2, h3 {
 h3 {
   margin-top: 0px;
   color: #00004d;
+  font-family: Starjedi, Verdana;
 }
-
 /*
  *  MAIN
  */
@@ -38,29 +38,42 @@ h3 {
   color: #000;
 }
 .infoBlock{
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  justify-content: space-between;
   font-family: Verdana;
   font-size: 1.4em;
+  background-color: #e3e5e8;
+  border-radius: 5px;
+}
+.infoBlock:after{
+	clear: both;
+	content: '';
+	display: table;
 }
 .infoBlock div {
-  border-right: 1px solid #00004d;
+  /*border-left: 1px solid #00004d;*/
+  box-sizing:border-box;
+  border-radius: 3px;
+  /*padding: 10px;
+  min-width: 30%;*/
+  margin-bottom: 10px;
 }
 .infoBlock p{
   margin: 0.2em 0;
 }
-p::first-letter {
-  text-transform: uppercase;
+.infoBlock ul {
+  list-style: none;
+  padding-left: 2px;
 }
+/*p::first-letter {
+  text-transform: uppercase;
+}*/
 #charSuplData,
 #charFilms {
   font-size: 0.8em;
 
 }
-#charSuplData p:hover{
+.infoBlock ul>li:hover{
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /*
