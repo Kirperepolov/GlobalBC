@@ -167,7 +167,7 @@ function getCharPhoto(obj) {
 
 /**
  * the function getSuplData() loads all the supplementary data about
- * characters and objects and puts the content to separate blocks 
+ * characters and objects and puts the content to separate blocks
  */
 function getSuplData(obj){
   var infoBlock = document.querySelector('.infoBlock');
