@@ -4,7 +4,7 @@
   var person = 'people/1/';
   // var movie = 'films/4/';
   var path = API+person;
-  loadData(path);
+  // loadData(path);
 
 
 /**
@@ -102,22 +102,24 @@ function getCharPhoto(obj) {
     navButtonForw.textContent = 'Next';
 
   var arrURL = obj['url'].split('/');
+  var urlIndex =  urlList[arrURL[4]].indexOf(obj['url']);
+
   getNextButton(arrURL);
+  getPrevButton(arrURL);
   // not to try to get non-existing data perform minimal check of the url
-  if (arrURL[5]>1){
-    getPrevButton(arrURL)
-  } else {
-    navButtonBack.className='hidden';
-  };
+  // if (arrURL[5]>1){
+  //   getPrevButton(arrURL)
+  // } else {
+  //   navButtonBack.className='hidden';
+  // };
 
   //the function to create the "Next" button
   function getNextButton(arrURL){
-    var linkForward = arrURL[0];
-    arrURL[5] = +arrURL[5]+1;
-    for (var i=1;i<arrURL.length;i++){
-      linkForward += '\/' + arrURL[i];
+    var linkForward = urlList[arrURL[4]][urlIndex+1];
+    if (!linkForward) {
+      navButtonForw.className='hidden';
+      return "this is the End";
     };
-    arrURL[5] = arrURL[5]-1;
 
     fetch(linkForward)
     .then(function(response){
@@ -136,12 +138,11 @@ function getCharPhoto(obj) {
 
   //the function to create the "Previous" button
   function getPrevButton(){
-    var linkBack = arrURL[0];
-    arrURL[5] = +arrURL[5]-1;
-    for (var i=1;i<arrURL.length;i++){
-      linkBack += '\/' + arrURL[i];
+    var linkBack = urlList[arrURL[4]][urlIndex-1];
+    if (!linkBack) {
+      navButtonBack.className='hidden';
+      return "this is the End";
     };
-    arrURL[5] = arrURL[5]+1;
 
     fetch(linkBack)
     .then(function(response){
