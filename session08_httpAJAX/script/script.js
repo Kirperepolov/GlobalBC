@@ -1,14 +1,15 @@
-// Запрос на начальную информацию
+// the start preload
   var API = 'https://swapi.co/api/';
   // var planet = 'planets/1/';
-  var person = 'people/4/';
+  var person = 'people/1/';
   // var movie = 'films/4/';
   var path = API+person;
   loadData(path);
 
 
 /**
- * definition for the most separate functions;
+ * the function loadData() loads the full content about a character/object and invokes
+ * supplementary functions to fullfill additional blocks
  */
 function loadData(path){
   fetch(path)
@@ -18,10 +19,17 @@ function loadData(path){
     getCharPhoto(json)
     getCharInfo(json);
     getSuplData(json);
+  })
+  .catch(function(error){
+    console.log(error.message);
   });
 }
 
-
+/**
+ * the function createMainContainer() creates the main content block
+ * which is fullfilled by additional blocks. Also it sets the title
+ * of the content
+ */
 function createMainContainer(obj){
   var container = document.getElementsByClassName('container')[0];
   container.innerHTML = null;
@@ -43,12 +51,16 @@ function createMainContainer(obj){
   container.appendChild(infoBlock);
 };
 
+/**
+ * the function getCharInfo() parses the main content about a character/object
+ */
 function getCharInfo(obj){
   var infoBlock = document.querySelector('.infoBlock');
   var charInfo = document.createElement('div');
   charInfo.id='charInfo';
   charInfo.className='col-sm-4';
     for (key in obj) {
+      //next content fields should be ignored in the main content blocks
     if (typeof obj[key] !== 'object' &&
     key !== 'created' &&
     key !== 'edited' &&
@@ -65,65 +77,87 @@ function getCharInfo(obj){
   infoBlock.appendChild(charInfo);
 };
 
+/**
+ * the function getCharPhoto() is supposed to insert a character's/objects's
+ * picture and inserts navigation buttons
+ */
 function getCharPhoto(obj) {
   var infoBlock = document.querySelector('.infoBlock');
   var charPicBlock = document.createElement('div');
   charPicBlock.className='col-sm-4';
   charPicBlock.id= 'charPicBlock';
+
   var charPic = document.createElement('img');
   charPic.id='charPic';
   charPic.className='text-center';
   charPic.setAttribute('src','images/SW_logo_300.jpg');
+
   var navButtons = document.createElement('div');
   navButtons.className='text-center navButtons';
-  var navButtonBack = document.createElement('div');
-  navButtonBack.id='navButtonBack';
-  navButtonBack.textContent = 'Prev';
-  var navButtonForw = document.createElement('div');
-  navButtonForw.id='navButtonForw';
-  navButtonForw.textContent = 'Next';
+    var navButtonBack = document.createElement('div');
+    navButtonBack.id='navButtonBack';
+    navButtonBack.textContent = 'Prev';
+    var navButtonForw = document.createElement('div');
+    navButtonForw.id='navButtonForw';
+    navButtonForw.textContent = 'Next';
+
   var arrURL = obj['url'].split('/');
-  var linkBack = arrURL[0];
-  var linkForward = arrURL[0];
-
-  for (var i=1;i<arrURL.length;i++){
-    if (i === 5){arrURL[i] = +arrURL[i]-1};
-    linkBack += '\/' + arrURL[i];
+  getNextButton(arrURL);
+  // not to try to get non-existing data perform minimal check of the url
+  if (arrURL[5]>1){
+    getPrevButton(arrURL)
+  } else {
+    navButtonBack.className='hidden';
   };
-  for (var i=1;i<arrURL.length;i++){
-    if (i === 5){arrURL[i] +=2};
-    linkForward += '\/' + arrURL[i];
-  };
-  fetch(linkBack)
-  .then(function(response){
-    if(response.ok){
-      return response.json();
-    } else {navButtonBack.className='hidden';};
-  })
-  .then(function(obj){
-    navButtonBack.addEventListener('click',function(){loadData(obj.url)});
-    navButtonBack.setAttribute('title',obj.name||obj.title);
-  })
-  .catch(function(error){
-    console.log("You've reached the end of the list");
-  });
-  fetch(linkForward)
-  .then(function(response){
-    if(response.ok){
-      return response.json();
-    } else {navButtonForw.className='hidden';};
-  })
-  .then(function(obj){
-    navButtonForw.addEventListener('click',function(){loadData(obj.url)});
-    navButtonForw.setAttribute('title',obj.name||obj.title);
-  })
-  .catch(function(error){
-    console.log("You've reached the end of the list");
-  });
 
-  // var infoLine = document.createElement('p');
-  // infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
-  // charInfo.appendChild(infoLine);
+  //the function to create the "Next" button
+  function getNextButton(arrURL){
+    var linkForward = arrURL[0];
+    arrURL[5] = +arrURL[5]+1;
+    for (var i=1;i<arrURL.length;i++){
+      linkForward += '\/' + arrURL[i];
+    };
+    arrURL[5] = arrURL[5]-1;
+
+    fetch(linkForward)
+    .then(function(response){
+      if(response.ok){
+        return response.json();
+      } else {navButtonForw.className='hidden';};
+    })
+    .then(function(obj){
+      navButtonForw.addEventListener('click',function(){loadData(obj.url)});
+      navButtonForw.setAttribute('title',obj.name||obj.title);
+    })
+    .catch(function(error){
+      console.log(error.message);
+    });
+  };
+
+  //the function to create the "Previous" button
+  function getPrevButton(){
+    var linkBack = arrURL[0];
+    arrURL[5] = +arrURL[5]-1;
+    for (var i=1;i<arrURL.length;i++){
+      linkBack += '\/' + arrURL[i];
+    };
+    arrURL[5] = arrURL[5]+1;
+
+    fetch(linkBack)
+    .then(function(response){
+      if(response.ok){
+        return response.json();
+      } else {navButtonBack.className='hidden';};
+    })
+    .then(function(obj){
+      navButtonBack.addEventListener('click',function(){loadData(obj.url)});
+      navButtonBack.setAttribute('title',obj.name||obj.title);
+    })
+    .catch(function(error){
+      console.log(error.message);
+    });
+  };
+
   navButtons.appendChild(navButtonBack);
   navButtons.appendChild(navButtonForw);
   charPicBlock.appendChild(charPic);
@@ -131,6 +165,10 @@ function getCharPhoto(obj) {
   infoBlock.appendChild(charPicBlock);
 };
 
+/**
+ * the function getSuplData() loads all the supplementary data about
+ * characters and objects and puts the content to separate blocks 
+ */
 function getSuplData(obj){
   var infoBlock = document.querySelector('.infoBlock');
   var linksArray=[];
@@ -176,6 +214,9 @@ function loadSupplementaryData(arr,title,division){
       var listItemValue = obj.name?obj.name:obj.title;
       infoLink.textContent = listItemTitle ? listItemTitle + listItemValue :listItemValue;
       list.appendChild(infoLink);
+    })
+    .catch(function(error){
+      console.log(error.message);
     })
   };
 }
