@@ -1,24 +1,11 @@
-// var charHeader = document.createElement('h2');
-// var charPic = document.createElement('div');
-// var charSuplData = document.createElement('div');
-// var charFilms = document.createElement('div');
-// var charInfo = document.createElement('div');
-// var lineBrake = document.createElement('br');
-// charHeader.id='charHeader';
-// charPic.id='charPic';
-// charSuplData.id='charSuplData';
-// charFilms.id='charFilms';
-// charInfo.id='charInfo';
-
-
-var API = 'http://swapi.co/api/';
-var planet = 'planets/1/';
-var person = 'people/1/';
-// var movie;
-var path = API+planet;
-
 // Запрос на начальную информацию
-loadData(path);
+  var API = 'https://swapi.co/api/';
+  // var planet = 'planets/1/';
+  var person = 'people/4/';
+  // var movie = 'films/4/';
+  var path = API+person;
+  loadData(path);
+
 
 /**
  * definition for the most separate functions;
@@ -71,7 +58,7 @@ function getCharInfo(obj){
     key !== 'title') {
       var infoLine = document.createElement('p');
       var stingName = key.charAt(0).toUpperCase() + key.slice(1);
-      infoLine.textContent = stingName.replace("_", " ") +'\: '+ obj[key];
+      infoLine.textContent = stingName.replace(/_/g, " ") +'\: '+ obj[key];
       charInfo.appendChild(infoLine);
     };
   };
@@ -80,6 +67,9 @@ function getCharInfo(obj){
 
 function getCharPhoto(obj) {
   var infoBlock = document.querySelector('.infoBlock');
+  var charPicBlock = document.createElement('div');
+  charPicBlock.className='col-sm-4';
+  charPicBlock.id= 'charPicBlock';
   var charPic = document.createElement('img');
   charPic.id='charPic';
   charPic.className='text-center';
@@ -105,29 +95,40 @@ function getCharPhoto(obj) {
     linkForward += '\/' + arrURL[i];
   };
   fetch(linkBack)
-  .then(resp=>resp.json())
+  .then(function(response){
+    if(response.ok){
+      return response.json();
+    } else {navButtonBack.className='hidden';};
+  })
   .then(function(obj){
     navButtonBack.addEventListener('click',function(){loadData(obj.url)});
-    navButtons.appendChild(navButtonBack);
+    navButtonBack.setAttribute('title',obj.name||obj.title);
   })
-  .catch(function(){
-    navButtonBack.className='hidden'
+  .catch(function(error){
+    console.log("You've reached the end of the list");
   });
   fetch(linkForward)
-  .then(resp=>resp.json())
-  .then(function(obj){
-    navButtonBack.addEventListener('click',function(){loadData(obj.url)});
-    navButtons.appendChild(navButtonForw);
+  .then(function(response){
+    if(response.ok){
+      return response.json();
+    } else {navButtonForw.className='hidden';};
   })
-  .catch(function(){
-    navButtonBack.className='hidden'
+  .then(function(obj){
+    navButtonForw.addEventListener('click',function(){loadData(obj.url)});
+    navButtonForw.setAttribute('title',obj.name||obj.title);
+  })
+  .catch(function(error){
+    console.log("You've reached the end of the list");
   });
 
   // var infoLine = document.createElement('p');
   // infoLine.textContent = key.replace("_", " ") +'\: '+ obj[key];
   // charInfo.appendChild(infoLine);
-  infoBlock.appendChild(charPic);
-  infoBlock.appendChild(navButtons);
+  navButtons.appendChild(navButtonBack);
+  navButtons.appendChild(navButtonForw);
+  charPicBlock.appendChild(charPic);
+  charPicBlock.appendChild(navButtons);
+  infoBlock.appendChild(charPicBlock);
 };
 
 function getSuplData(obj){
