@@ -5,7 +5,7 @@
   // var movie = 'films/4/';
   var path = API+person;
   // loadData(path);
-
+document.querySelector('h1').addEventListener('click',mainPage);
 
 /**
  * the function loadData() loads the full content about a character/object and invokes
@@ -31,7 +31,7 @@ function loadData(path){
  * of the content
  */
 function createMainContainer(obj){
-  var container = document.getElementsByClassName('container')[0];
+  var container = document.getElementById('main-data');
   container.innerHTML = null;
   var charHeader = document.createElement('h2');
   charHeader.id='charHeader';
@@ -102,8 +102,14 @@ function getCharPhoto(obj) {
     navButtonForw.textContent = 'Next';
 
   var arrURL = obj['url'].split('/');
-  var urlIndex =  urlList[arrURL[4]].indexOf(obj['url']);
-
+  var urlIndex;
+  for (var index in urlList[arrURL[4]]) {
+    if (obj['url'] === urlList[arrURL[4]][index]['url']){
+      urlIndex = index;
+      break;
+    };
+  };
+  urlIndex = +urlIndex;
   getNextButton(arrURL);
   getPrevButton(arrURL);
   // not to try to get non-existing data perform minimal check of the url
@@ -115,12 +121,12 @@ function getCharPhoto(obj) {
 
   //the function to create the "Next" button
   function getNextButton(arrURL){
-    var linkForward = urlList[arrURL[4]][urlIndex+1];
-    if (!linkForward) {
+
+    if (!urlList[arrURL[4]][urlIndex+1]) {
       navButtonForw.className='hidden';
       return "this is the End";
     };
-
+    var linkForward = urlList[arrURL[4]][urlIndex+1]['url'];
     fetch(linkForward)
     .then(function(response){
       if(response.ok){
@@ -138,12 +144,12 @@ function getCharPhoto(obj) {
 
   //the function to create the "Previous" button
   function getPrevButton(){
-    var linkBack = urlList[arrURL[4]][urlIndex-1];
-    if (!linkBack) {
+    if (!urlList[arrURL[4]][urlIndex-1]) {
       navButtonBack.className='hidden';
       return "this is the End";
     };
 
+    var linkBack = urlList[arrURL[4]][urlIndex-1]['url'];
     fetch(linkBack)
     .then(function(response){
       if(response.ok){

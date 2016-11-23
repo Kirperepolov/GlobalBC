@@ -27,6 +27,9 @@ h3 {
   border-radius: 3px;
   margin: 3px auto;
 }
+.pointer:hover{
+  cursor: pointer;
+}
 #charHeader {
   width: 100%;
   text-align: center;
