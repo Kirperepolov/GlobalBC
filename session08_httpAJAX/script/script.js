@@ -5,13 +5,16 @@
   // var movie = 'films/4/';
   var path = API+person;
   // loadData(path);
-document.querySelector('h1').addEventListener('click',mainPage);
+document.querySelector('h1').addEventListener('click',function(){
+  mainPage(pathList);
+});
 
 /**
  * the function loadData() loads the full content about a character/object and invokes
  * supplementary functions to fullfill additional blocks
  */
 function loadData(path){
+  setLoader();
   fetch(path)
   .then(function(response) {return response.json()})
   .then(function(json){
@@ -19,6 +22,7 @@ function loadData(path){
     getCharPhoto(json)
     getCharInfo(json);
     getSuplData(json);
+    removeLoader();
   })
   .catch(function(error){
     console.log(error.message);
@@ -226,4 +230,4 @@ function loadSupplementaryData(arr,title,division){
       console.log(error.message);
     })
   };
-}
+};

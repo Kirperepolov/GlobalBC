@@ -8,8 +8,23 @@ var pathList = {
 };
 
 
+//
+// function getAllUrls(pathList){
+//   var urlList=new Object();
+//   for (var key in pathList){
+//     urlList[key] = [];
+//     loadURLs(pathList[key],key,urlList);
+//   };
+//   return urlList;
+// };
 
-function getAllUrls(pathList){
+function mainPage(pathList){
+  setLoader();
+  var mainContainer = document.getElementById('main-data');
+  mainContainer.innerHTML = null;
+  var infoBlock = document.createElement('div');
+  infoBlock.className='infoBlock';
+  mainContainer.appendChild(infoBlock);
   var urlList=new Object();
   for (var key in pathList){
     urlList[key] = [];
@@ -17,7 +32,6 @@ function getAllUrls(pathList){
   };
   return urlList;
 };
-
 
 function loadURLs(url,key,urlList){
 
@@ -30,35 +44,45 @@ function loadURLs(url,key,urlList){
         'name':(obj.results[i]['name']||obj.results[i]['title'])}
       )
     };
-    if (obj.next){loadURLs(obj.next,key,urlList)};
+    if (obj.next){
+      loadURLs(obj.next,key,urlList)
+    } else {return urlList;};
+
   })
   .then(function(urlList){
-    var infoBlock = document.getElementById('infoBlock');
+    if (!urlList) {return};
+    var infoBlock = document.querySelector('.infoBlock');
     var children = infoBlock.querySelectorAll('div');
     var childredIds = [];
     for (var i=0;i<children.length;i++){
       childredIds.push(children[i].id)
     };
-    
+      if (!~childredIds.indexOf(key)) {
+        loadCategory(urlList,key);
+      };
+      removeLoader();
+      return urlList;
   })
   .catch(function(error){
     console.log(error.message);
   });
 };
-var urlList = getAllUrls(pathList);
-
-function mainPage(urlList){
-  var mainContainer = document.getElementById('main-data');
-  mainContainer.innerHTML = null;
-  var infoBlock = document.createElement('div');
-  infoBlock.className='infoBlock';
-  mainContainer.appendChild(infoBlock);
-};
+document.addEventListener("DOMContentLoaded", function(event) {
+    var urlList = mainPage(pathList);
+    console.log("DOM fully loaded and parsed");
+    window.urlList=urlList;
+  });
 
 
-function loadCategories(urlList){
-  var infoBlock = document.getElementById('infoBlock');
-  for (var key in pathList) {
+
+function loadCategory(urlCategory,key){
+  if (!urlCategory) {return};
+  if(!key){
+    for (var key in urlCategory) {
+      loadCategory(urlCategory,key);
+    };
+  } else {
+    var infoBlock = document.querySelector('.infoBlock');
     var block = document.createElement('div');
     block.id = key;
     block.className='col-sm-4';
@@ -68,10 +92,10 @@ function loadCategories(urlList){
     title.addEventListener('click',toggleList);
     var list =  document.createElement('ul');
     list.className='hidden';
-    for (var i in urlList[key]) {
+    for (var i in urlCategory[key]) {
       var listItem =  document.createElement('li');
-      listItem.textContent = urlList[key][i]['name'];
-      listItem.url = urlList[key][i]['url'];
+      listItem.textContent = urlCategory[key][i]['name'];
+      listItem.url = urlCategory[key][i]['url'];
       listItem.addEventListener('click',function(){
         loadData(this.url);
       });
@@ -81,11 +105,26 @@ function loadCategories(urlList){
     block.appendChild(list);
     infoBlock.appendChild(block);
   };
-
   function toggleList(){
     var list = this.parentNode.querySelector('ul');
     if (list.className === 'hidden'){
       list.className = null;
     } else {list.className = 'hidden'};
   };
+};
+
+
+function setLoader(){
+  var loader = document.createElement('div');
+  loader.id='loader';
+  var x = Math.floor(document.body.clientWidth/2)-100;
+  var y = Math.floor(document.body.clientHeight/2);
+  var styleValue = 'position:absolute;width:200px;height:200px;top:'+y+'px;left:'+x+'px;background-image:url(images/ring-alt.gif);background-repeat:no-repeat;z-index:2;';
+  loader.setAttribute('style',styleValue);
+  document.body.insertBefore(loader,document.body.children[0]);
+};
+
+function removeLoader(){
+  var loader = document.getElementById('loader')
+  if (loader) {loader.remove();}
 };
