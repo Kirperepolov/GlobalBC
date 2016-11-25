@@ -106,6 +106,13 @@ function attributeFunc(elem,attrName,attrVal){
 - ячейки раскрашены белым и черным
 - нужные атрибуты и стили задавайте с помощью JS
 */
+
+/**
+ * createChess - creates a 8x8 chess field without any logic
+ * No parameters needed
+ *
+ * @return {undefined} nothing
+ */
 function createChess(){
   var fieldStyle = 'border:1px solid #000;box-sizing:content-box;width: 400px;height:400px;margin:170px auto;padding:0;display:block';
   var blackBlock = 'width:50px;height:50px;background-color:#000;margin:0;float:left;';
@@ -134,6 +141,13 @@ function createChess(){
 - c помощью JS создать ячейки 1..15
 - назначить необходимые обработчики событий
 */
+
+
+/**
+ * create15 - creates an active gamefield for the 15blocks game
+ *
+ * @return {undefined} nothing
+ */
 function create15(){
   var field = document.createElement('div');
   field.className = 'container';
@@ -187,17 +201,24 @@ function create15(){
   var container = document.querySelector('.container')
   container.parentNode.replaceChild(field,container);
 };
+
 document.addEventListener("DOMContentLoaded", create15());
 
-// document.getElementById('actionStart').addEventListener('click', createBlocks());
 
-// CHESSGAME
 
+/**
+ * blockGame - this function is invoked when a step in the 15blocks game
+ * must be done. I checks whether there is a neighboring empty block
+ * right next to the clicked one and if so - moves the clicked block
+ * to the empty space.
+ * Uses "this" to define the clicked block
+ * Increments steps number by 1 on every successful block movement
+ *  *
+ * @return {undefined} nothing
+ */
 function blockGame(){
-  // console.log(this);
 
   var index = 0;
-
   var emptyBlock = document.getElementById("emptyBlock");
   var steps = +document.getElementById('steps').textContent;
   var gameField = document.getElementById('game');
@@ -211,10 +232,16 @@ function blockGame(){
   );
   while (this !== nodeIterator.nextNode()) {index++};
 
-  function changeAbove(){
+  /**
+   * changeBlocks - a function to change two blocks with each other
+   *
+   * @return {undefined} nothing
+   */
+  function changeBlocks(){
     gameField.replaceChild(this,emptyBlock);
     gameField.insertBefore(emptyBlock,gameField.children[index-1]);
   };
+
   if (this.nextElementSibling === emptyBlock) {
     gameField.insertBefore(emptyBlock,this);
     steps++;
@@ -225,13 +252,13 @@ function blockGame(){
     var i=0;
     while (i<4) {nodeIterator.nextNode(); i++};
     if (nodeIterator.referenceNode === emptyBlock) {
-      changeAbove.call(this);
+      changeBlocks.call(this);
       steps++;
     } else {
       i=8;
       while (i>=0) {nodeIterator.previousNode(); i--};
       if (nodeIterator.referenceNode === emptyBlock) {
-        changeAbove.call(this);
+        changeBlocks.call(this);
         steps++;
       };
     };
@@ -239,13 +266,21 @@ function blockGame(){
     i=4;
     while (i>=0) {nodeIterator.previousNode(); i--};
     if (nodeIterator.referenceNode === emptyBlock) {
-      changeAbove.call(this);
+      changeBlocks.call(this);
       steps++;
     };
   };
   document.getElementById('steps').textContent = steps;
 };
 
+/**
+ * startBlockGame - makes 100 random moves in 15blocks game
+ * to mix the game field;
+ * Sets "Count Steps" to zero
+ * No parameters needed
+ *
+ * @return {undefined}  nothing
+ */
 function startBlockGame() {
   for (var i=0;i<100;i++){
     mixBlocks();
@@ -253,6 +288,14 @@ function startBlockGame() {
   document.getElementById('steps').textContent=0;
 };
 
+
+
+/**
+ * mixBlocks - is invoked to move a random block
+ *
+ *  no parameters needed
+ * @return {undefined}  nothing
+ */
 function mixBlocks(){
   // for (var i=0;i<100;i++) {
   //   var randomBlockIndex = Math.floor(Math.random()*16);
@@ -358,19 +401,3 @@ function mixBlocks(){
     };
   };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-* Code end
-*/
