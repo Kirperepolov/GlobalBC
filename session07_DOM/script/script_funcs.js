@@ -136,6 +136,12 @@ document.addEventListener("DOMContentLoaded", function(){
   if (localStorage.gamefield) {
     // Retrieve the gamefield from the localStorage if possible
     document.querySelector('.container').innerHTML = localStorage.gamefield;
+    // restoring the main event listeners as
+    // they are not stored in the localStorage
+    document.getElementById('game').
+      addEventListener('click',blockGame);
+    document.getElementById('actionStart').
+      addEventListener('click',startBlockGame);
   } else {
     create15();
   };
@@ -198,13 +204,14 @@ function create15(){
       * use event.target instead of this in function blockGame(),
       * but it makes the code more complex
       */
-      block.addEventListener('click',blockGame);
+      // block.addEventListener('click',blockGame);
 
     };
     var block = document.createElement('div');
     block.className = 'block';
     block.id= 'emptyBlock';
     gameField.appendChild(block);
+    gameField.addEventListener('click',blockGame);
     stepsBlock.textContent = '0';
   }
   createBlocks();
@@ -238,7 +245,7 @@ function blockGame(){
       return (node.nodeType === 1) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
     }
   );
-  while (this !== nodeIterator.nextNode()) {index++};
+  while (event.target !== nodeIterator.nextNode()) {index++};
 
   /**
    * changeBlocks - a function to change two blocks with each other
@@ -246,27 +253,27 @@ function blockGame(){
    * @return {undefined} nothing
    */
   function changeBlocks(){
-    gameField.replaceChild(this,emptyBlock);
+    gameField.replaceChild(event.target,emptyBlock);
     gameField.insertBefore(emptyBlock,gameField.children[index-1]);
   };
 
-  if (this.nextElementSibling === emptyBlock) {
-    gameField.insertBefore(emptyBlock,this);
+  if (event.target.nextElementSibling === emptyBlock) {
+    gameField.insertBefore(emptyBlock,event.target);
     steps++;
-  } else if (this.previousElementSibling === emptyBlock) {
-    gameField.insertBefore(this,emptyBlock);
+  } else if (event.target.previousElementSibling === emptyBlock) {
+    gameField.insertBefore(event.target,emptyBlock);
     steps++;
   } else if (index<=12) {
     var i=0;
     while (i<4) {nodeIterator.nextNode(); i++};
     if (nodeIterator.referenceNode === emptyBlock) {
-      changeBlocks.call(this);
+      changeBlocks.call(event.target);
       steps++;
     } else {
       i=8;
       while (i>=0) {nodeIterator.previousNode(); i--};
       if (nodeIterator.referenceNode === emptyBlock) {
-        changeBlocks.call(this);
+        changeBlocks.call(event.target);
         steps++;
       };
     };
@@ -274,11 +281,12 @@ function blockGame(){
     i=4;
     while (i>=0) {nodeIterator.previousNode(); i--};
     if (nodeIterator.referenceNode === emptyBlock) {
-      changeBlocks.call(this);
+      changeBlocks.call(event.target);
       steps++;
     };
   };
   document.getElementById('steps').textContent = steps;
+  checkWin();
 };
 
 /**
@@ -430,6 +438,30 @@ function mixBlocks(){
       case (1):
       neibLeft();
       break;
+    };
+  };
+};
+
+/**
+ * checkWin - the function checks whether the player has won the game;
+ *
+ */
+function checkWin(){
+  var score = +document.getElementById('steps').textContent;
+  var gamefield = document.getElementById('game');
+  //by this cycle I check if the blocks are in the propper order,
+  // and if so var i get the value 15
+  for (var i=0;i<gamefield.children.length;i++){
+    if (gamefield.children[i].id !== 'id'+(1+i)) {
+      break;
+    };
+  };
+  if (i===15){
+    alert('you won the game!');
+    
+    if (!gamefield.minScore || gamefield.minScore>score){
+      gamefield.minScore=score;
+      alert('you set a record and played the game in ' + score + ' steps!');
     };
   };
 };
