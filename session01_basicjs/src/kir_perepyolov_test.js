@@ -158,11 +158,9 @@
 	и возвращает один состоящий из элементов перового и второго (последовательно сначала первый потом второй)
 	*/
 	function glue (arrA, arrB) {
-	// for (var i=0;i<arrB.length;i++) {
 		var x = arrA.concat(arrB);
-	// };
-	return x;
-}
+		return x;
+	}
 
 
 /*
