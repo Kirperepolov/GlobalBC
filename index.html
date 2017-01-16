@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="GLApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>GLobal Logic JavaScript Base Camp</title>
+</head>
+<body>
+
+<header class="container">
+  <h1>Global Logic Ukraine</h1>
+  <h2>Javascript Base Camp</h2>
+</header>
+
+<main class="container">
+  <ui-view></ui-view>
+</main>
+
+<footer></footer>
+<!-- LIBS -->
+  <script src="lib/jquery-2.1.4.min.js" charset="utf-8"></script>
+  <script src="lib/bootstrap.min.js" charset="utf-8"></script>
+  <script src="lib/angular.min.js" charset="utf-8"></script>
+  <script src="lib/angular-ui-router.min.js" charset="utf-8"></script>
+  <!-- MODULE -->
+  <script src="src/js/GL_main.module.js" charset="utf-8"></script>
+  <!-- ROUTES -->
+  <script src="src/js/GL_main.routes.js" charset="utf-8"></script>
+  <!-- MODULE ARTIFACTS -->
+  <script src="src/js/GL_main.LoadService.js" charset="utf-8"></script>
+  <script src="src/js/GL_main.MainController.js" charset="utf-8"></script>
+  <script src="src/js/GL_main.sessionDir.js" charset="utf-8"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<h3>{{lecturesList[lectureIndex].title}}</h3>
+<ul class="col-sm-6">
+  <li ng-repeat="lecture in lecturesList[lectureIndex].lecture">
+    <a href="{{lecture.url}}">{{lecture.name}}</a>
+  </li>
+</ul>
+<div class="col-sm-6">
+  <div ng-repeat="hometask in lecturesList[lectureIndex].hometask">
+    <p  class="col-sm-4">{{hometask.name}} hometask</p>
+    <div  class="col-sm-8">
+      <p><a href="{{hometask.taskUrl}}">Task</a></p>
+      <p><a href="{{hometask.url}}">Result</a></p>
+    </div>
+  </div>
+</div>

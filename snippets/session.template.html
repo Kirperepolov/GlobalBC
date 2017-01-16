@@ -1,0 +1,21 @@
+
+<div class="raw">
+  <!-- <sessin-directive lectures-list="ctrl.lecturesList" lecture-index="ctrl.index"></sessin-directive> -->
+  <h3>{{ctrl.lecturesList[ctrl.index].title}}</h3>
+  <ul class="col-sm-6">
+    <li ng-repeat="lecture in ctrl.lecturesList[ctrl.index].lecture">
+      <a href="{{lecture.url}}">{{lecture.name}}</a>
+    </li>
+  </ul>
+  <div class="col-sm-6">
+    <div ng-repeat="hometask in ctrl.lecturesList[ctrl.index].hometask">
+      <p  class="col-sm-4">{{hometask.name}} hometask</p>
+      <div  class="col-sm-8">
+        <p><a href="{{hometask.taskUrl}}">Task</a></p>
+        <p><a href="{{hometask.url}}">Result</a></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<p class="raw"><a ui-sref="home">Home</a></p>
