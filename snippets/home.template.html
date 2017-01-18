@@ -1,8 +1,10 @@
-<dir ng-controller="MainController as ctrl">
+<dir class="container">
   <h3>Sessions</h3>
   <ul>
-    <li ng-repeat="lecture in ctrl.lecturesList">
-      <p>Session {{lecture.id}}: <a ui-sref="{{lecture.name}}" ng-click="ctrl.setIndex($index)">{{lecture.title}}</a></p>
+    <li ng-repeat="lecture in sessionsCtrl.sessionsList">
+      <p>Session {{lecture.id}}: <a ui-sref="home.sessionDetails({sessionId: $index})">{{lecture.title}}</a></p>
     </li>
   </ul>
 </dir>
+
+<ui-view></ui-view>

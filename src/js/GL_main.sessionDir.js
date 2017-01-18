@@ -8,8 +8,7 @@
     let ddo = {
       templateUrl: 'snippets/session.directive.html',
       scope: {
-        lecturesList: '<',
-        lectureIndex: '<'
+        session: '<'
       },
       restrict:'E'
     };

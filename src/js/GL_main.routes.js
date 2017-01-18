@@ -14,25 +14,17 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'snippets/home.template.html'
-      })
-
-      .state('basics', {
-        url: '/basics',
-        templateUrl: 'snippets/session.template.html',
-        controller: 'MainController as ctrl'
-      })
-
-      .state('functions', {
-        url: '/functions',
-        templateUrl: 'snippets/session.template.html',
-        controller: 'MainController as ctrl'
-      })
-
-      .state('objects', {
-        url: '/objects',
-        templateUrl: 'snippets/session.template.html',
-        controller: 'MainController as ctrl'
+        templateUrl: 'snippets/home.template.html',
+        controller: 'MainController as sessionsCtrl',
+        resolve:{
+          sessions: ['LoadService',
+            function (LoadService) {
+              return LoadService.getList()
+                .then(function (list) {
+                  return list.lectures;
+                });
+            }]
+        }
       });
   }
 

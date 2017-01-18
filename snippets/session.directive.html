@@ -1,15 +1,15 @@
-<h3>{{lecturesList[lectureIndex].title}}</h3>
+<h3>{{session.title}}</h3>
 <ul class="col-sm-6">
-  <li ng-repeat="lecture in lecturesList[lectureIndex].lecture">
+  <li ng-repeat="lecture in session.lecture">
     <a href="{{lecture.url}}">{{lecture.name}}</a>
   </li>
 </ul>
 <div class="col-sm-6">
-  <div ng-repeat="hometask in lecturesList[lectureIndex].hometask">
-    <p  class="col-sm-4">{{hometask.name}} hometask</p>
-    <div  class="col-sm-8">
-      <p><a href="{{hometask.taskUrl}}">Task</a></p>
-      <p><a href="{{hometask.url}}">Result</a></p>
+  <div ng-repeat="hometask in session.hometask">
+    <p  class="col-sm-6">{{hometask.name}} hometask</p>
+    <div class="col-sm-6">
+      <p class="hometask"><a href="{{hometask.taskUrl}}">Task</a></p>
+      <p class="hometask-result"><a href="{{hometask.url}}">Result</a></p>
     </div>
   </div>
 </div>
