@@ -52,6 +52,8 @@
       fetch("src/session_list.json",
       {
         method: "PATCH",
+        contenType: 'application/json',
+        dataType:"json",
         body: JSON.stringify({lectures:LoadService.lecturesList})
       })
       .then(function(res){ console.log(res) })
