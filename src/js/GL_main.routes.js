@@ -14,14 +14,15 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'snippets/home.template.html',
+        // templateUrl: 'templates/admin.component.html',
+        templateUrl: 'templates/home.template.html',
         controller: 'MainController as sessionsCtrl',
         resolve:{
           sessions: ['LoadService',
             function (LoadService) {
               return LoadService.getList()
                 .then(function (list) {
-                  return list.lectures;
+                  return list;
                 });
             }]
         }
@@ -29,8 +30,14 @@
 
       .state('home.sessionDetails', {
         url: 'session/{sessionId}',
-        templateUrl: 'snippets/session.template.html',
+        templateUrl: 'templates/session.template.html',
         controller: 'SessionController as ctrl'
+      })
+
+      .state('home.admin',{
+        url: 'admin/',
+        templateUrl: 'templates/admin.component.html',
+        controller: 'AdminController as adminka'
       });
   }
 

@@ -1,0 +1,98 @@
+
+<div class="col-md-8 col-xs-12">
+<h3>Add information about one more session</h3>
+<div class="row">
+  <button class="btn btn-default hidden btn-danger" type="button" id="save-sessions">Save changes to session list</button>
+</div>
+<form method="post" id="session-control">
+
+  <div class="form-group row">
+    <label for="session-id" class="col-xs-2 col-xs-form-label">Session-id</label>
+    <div class="col-xs-10">
+      <input type="number" class="form-control col-xs-10" id="session-id" name="session-id" required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="session-short-name" class="col-xs-2 col-xs-form-label">Short name</label>
+    <div class="col-xs-10">
+      <input type="text" class="form-control col-xs-10" id="session-short-name" name="session-short-name" required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="session-title" class="col-xs-2 col-xs-form-label">Title</label>
+    <div class="col-xs-10">
+      <input type="text" class="form-control col-xs-10" id="session-title" name="session-title" required>
+    </div>
+  </div>
+
+  <!-- LECTURE FORM START -->
+  <div class="lecture-form row">
+    <h3>Lecture information</h3>
+    <div class="lecture">
+
+      <div class="form-group row">
+        <label for="lecture-name" class="col-xs-2 col-xs-form-label">Lecure name</label>
+        <div class="col-xs-10">
+          <input type="text" class="form-control col-xs-10" name="lecture-name">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="lecture-url" class="col-xs-2 col-xs-form-label">Lecure URL</label>
+        <div class="col-xs-10">
+          <input type="url" class="form-control col-xs-10" name="lecture-url">
+        </div>
+      </div>
+      <!-- add button start-->
+      <div class="form-group row">
+        <button class="btn btn-default btn-add" type="button">+</button>
+      </div>
+      <!-- add button finish-->
+
+    </div>
+  </div>
+  <!-- LECTURE FORM END -->
+
+  <!-- HOMETASK FORM START -->
+  <div class="hometask-form row">
+    <h3>Hometask information</h3>
+    <div class="hometask">
+
+      <div class="form-group row">
+        <label for="hometask-name" class="col-xs-2 col-xs-form-label">Hometask type</label>
+        <div class="col-xs-10">
+          <select class="form-control col-xs-10" name="hometask-name">
+            <option>Primary</option>
+            <option>Secondary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="hometask-taskUrl" class="col-xs-2 col-xs-form-label">The task URL</label>
+        <div class="col-xs-10">
+          <input type="url" class="form-control col-xs-10" name="hometask-taskUrl">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="hometask-url" class="col-xs-2 col-xs-form-label">The result URL</label>
+        <div class="col-xs-10">
+          <input type="url" class="form-control col-xs-10" name="hometask-url">
+        </div>
+      </div>
+      <!-- add button start-->
+      <div class="form-group row">
+        <button class="btn btn-default btn-add" type="button">+</button>
+      </div>
+      <!-- add button finish-->
+
+    </div>
+  </div>
+  <!-- HOMETASK FORM END -->
+
+  <button type="submit" class="btn btn-default" id="add-session">Submit</button>
+</form>
+</div>

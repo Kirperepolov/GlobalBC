@@ -14,7 +14,7 @@
 
       return $http.get(path)    //a shortcut method fot GET requests
       .then(function (result) {
-          service.lecturesList = result.data;
+          service.lecturesList = result.data.lectures;
 
         return service.lecturesList;
       })
