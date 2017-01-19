@@ -25,6 +25,12 @@
                 });
             }]
         }
+      })
+
+      .state('home.sessionDetails', {
+        url: 'session/{sessionId}',
+        templateUrl: 'snippets/session.template.html',
+        controller: 'SessionController as ctrl'
       });
   }
 
