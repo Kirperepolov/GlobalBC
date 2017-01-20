@@ -1,48 +1,9 @@
-{"lectures" : [{
-  "id":1,
-  "name":"basics",
-  "title":"JavaScript basics",
-  "lecture":[{
-    "name":"Slides.com: Basics",
-    "url":"http://slides.com/contact/basicjs"
-    }],
-  "hometask": [{
-    "name":"Primary",
-    "taskUrl":"",
-    "url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session01_basicjs"
-    }]
-  },{
-  "id":2,
-  "name":"functions",
-  "title":"JavaScript functions",
-  "lecture":[{
-    "name":"Slides.com: functions",
-    "url":"http://slides.com/alexbardanov/functions#/"
-  }],
-  "hometask": [{
-    "name":"Primary",
-    "taskUrl":"http://slides.com/alexbardanov/functions-4#/",
-    "url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session02_functions"
-    },{
-    "name":"Secondary",
-    "taskUrl":"http://slides.com/alexbardanov/deck-5#/",
-    "url":"#"
-    }]
-  },{
-  "id":3,
-  "name":"objects",
-  "title":"JavaScript objects",
-  "lecture":[{
-    "name":"Slides.com: objects",
-    "url":"http://slides.com/maximk/oopinjs#/4/3"
-    },{
-    "name":"JavaScript’s Number type",
-    "url":"https://medium.com/@maximus.koretskyi/javascripts-number-type-8d59199db1b6#.zihncvg8s"
-    }],
-  "hometask": [{
-    "name":"Primary",
-    "taskUrl":"https://slides.com/maximk/js-objects-practice",
-    "url":"https://slides.com/maximk/js-objects-practice"
-    }]
-  }]
-}
+{"lectures":[
+  {"id":1,"name":"basics","title":"JavaScript basics","lecture":[{"name":"Slides.com: Basics","url":"http://slides.com/contact/basicjs"}],"hometask":[{"name":"Primary","taskUrl":"","url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session01_basicjs"}],"$$hashKey":"object:5"},
+  {"id":2,"name":"functions","title":"JavaScript functions","lecture":[{"name":"Slides.com: functions","url":"http://slides.com/alexbardanov/functions#/"}],"hometask":[{"name":"Primary","taskUrl":"http://slides.com/alexbardanov/functions-4#/","url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session02_functions"},{"name":"Secondary","taskUrl":"http://slides.com/alexbardanov/deck-5#/","url":"#"}],"$$hashKey":"object:6"},
+  {"id":3,"name":"objects","title":"JavaScript objects","lecture":[{"name":"Slides.com: objects","url":"http://slides.com/maximk/oopinjs#/4/3"},{"name":"JavaScript’s Number type","url":"https://medium.com/@maximus.koretskyi/javascripts-number-type-8d59199db1b6#.zihncvg8s"}],"hometask":[{"name":"Primary","taskUrl":"https://slides.com/maximk/js-objects-practice","url":"https://slides.com/maximk/js-objects-practice"}],"$$hashKey":"object:7"},
+  {"id":"4","name":"oop","title":"JavaScript OOP","lecture":[{"name":"Slides.com: OOP","url":"http://slides.com/contact/oopinjs#/"}],"hometask":[{"name":"Primary","taskUrl":"http://slides.com/contact/oopinjspractice#/","url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session04_oop"}]},
+  {"id":"5","name":"objects_practice","title":"JavaScript objects (practice)","lecture":[{"name":"GitHub files","url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session05_objects_practice"},{"name":"StackOverFlow","url":"http://stackoverflow.com/questions/39997925/why-does-an-objects-constructor-property-changes-if-constructors-prototype-is/39998056#39998056"}],"hometask":[{"name":"Primary","taskUrl":"","url":""}]},
+  {"id":"6","name":"async","title":"JavaScript Asynchronous coding","lecture":[{"name":"Github fetch","url":"https://github.com/github/fetch","$$hashKey":"object:13"},{"name":"Slides","url":"http://slides.com/contact/asyncjs2#/","$$hashKey":"object:14"}],"hometask":[{"name":"Primary","taskUrl":"https://github.com/Kirperepolov/GlobalBC/tree/master/session06_async_code","url":"https://github.com/Kirperepolov/GlobalBC/tree/master/session06_async_code","$$hashKey":"object:17"}]},
+  {"id":"7","name":"dom","title":"JavaScript DOM manipulation","lecture":[{"name":"Slides.com: DOM","url":"https://slides.com/nicholassorokin/dom/"}],"hometask":[{"name":"Primary","taskUrl":"https://github.com/Kirperepolov/GlobalBC/blob/master/session07_DOM/readme.md","url":"https://kirperepolov.github.io/htmlcss-course/bin/session07_DOM/"}]},
+  {"id":"8","name":"httpAJAX","title":"Javascript HTTP / AJAX","lecture":[{"name":"Slides.com","url":"http://slides.com/alexbardanov/http#/"}],"hometask":[{"name":"Primary","taskUrl":"http://slides.com/alexbardanov/ajax-hometask#/","url":"https://kirperepolov.github.io/htmlcss-course/bin/starwars_cyclopedia/"}]}]}
