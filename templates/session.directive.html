@@ -1,11 +1,14 @@
-<h3>{{session.title}}</h3>
-<ul class="col-sm-6">
-  <li ng-repeat="lecture in session.lecture">
+<h4>{{session.title}}</h4>
+<div class="col-sm-6 session-task">
+  <h5>Tasks and materials</h5>
+  <p ng-repeat="lecture in session.lecture">
     <a href="{{lecture.url}}">{{lecture.name}}</a>
-  </li>
-</ul>
-<div class="col-sm-6">
-  <div ng-repeat="hometask in session.hometask">
+  </p>
+</div>
+<div class="col-sm-6 session-result"
+  ng-if="session.hometask[0].taskUrl || session.hometask[0].url">
+  <div ng-repeat="hometask in session.hometask" ng-if="hometask.taskUrl || hometask.url">
+    <h5>Hometask</h5>
     <p  class="col-sm-6">{{hometask.name}} hometask</p>
     <div class="col-sm-6">
       <p class="hometask"><a href="{{hometask.taskUrl}}">Task</a></p>
