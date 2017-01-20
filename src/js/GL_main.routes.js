@@ -36,7 +36,7 @@
 
       .state('home.admin',{
         url: 'admin/',
-        templateUrl: 'templates/admin.component.html',
+        templateUrl: 'templates/admin.template.html',
         controller: 'AdminController as adminka'
       });
   }

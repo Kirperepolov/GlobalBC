@@ -1,0 +1,71 @@
+header,main{
+  border-bottom: 4px double #777;
+  padding: 40px 0 20px;
+}
+$text-color:#f0f0f0;
+$text-size: 1.6rem;
+body {
+  background-image: url(../src/images/Apple-Keyboard-Wallpaper-For-Computer-199.jpg);
+  background-position:  top center;
+  background-color: #000;
+  background-repeat: no-repeat;
+  color: $text-color;
+}
+.svg-logo-desktop {
+    width: 20.25rem;
+    max-width: 100%;
+    max-height: 4.125rem;
+    :hover{
+      cursor: pointer;
+    }
+    g {
+      fill: #FFF;
+    }
+}
+h2{
+  a {
+    text-decoration: none;
+    color: $text-color;
+  }
+}
+
+.infoblock{
+  h3{
+    margin: 0 0 20px;
+    a {
+      text-decoration: none;
+      color: $text-color;
+      &:hover{
+        color: #9cc2e3;
+      }
+    }
+    font-size: 2.8rem;
+  }
+  h4{
+    @extend h3;
+    font-size: 2.2rem
+  }
+  h5{
+    @extend h3;
+    font-size: 2.0rem
+  }
+  border-radius: 30px;
+  background-color: rgba(255,255,255,0.2);
+  padding: 20px 30px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 5px solid rgba(255,255,255,0);
+  position: relative;
+  p, a{
+    font-size: $text-size;
+  }
+  a{
+    color: #9cc2e3;
+    &:hover{
+      color: #9cc2e3;
+    }
+  }
+}
+.session-task, .session-result{
+  @extend .infoblock;
+}
