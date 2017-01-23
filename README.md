@@ -3,3 +3,4 @@
 
 <p>There a number of sessions during the base camp, each session is supposed to cover one aspect of javascript coding. Most of them in the repository include only practice as the theory is given separatelly</p>
 <p>The sessions' topics are mentioned in the corresponding directories' names. The sessions task are included if possible, in most cases tasks are mentioned in *.js files as comments in russian.</p>
+<p>To view all the information on every particular session follow the <a href="https://kirperepolov.github.io/GlobalBC/#/">link</a></p>
