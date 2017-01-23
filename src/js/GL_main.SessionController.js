@@ -7,7 +7,8 @@
   SessionController.$inject=['$stateParams', 'sessions'];
   function SessionController($stateParams, sessions){
     var ctrl = this;
-    ctrl.session = sessions[$stateParams.sessionId];
+    ctrl.sessionId = $stateParams.sessionId;
+    ctrl.session = sessions[ctrl.sessionId];
 
   }
 

@@ -57,7 +57,10 @@
         body: JSON.stringify({lectures:LoadService.lecturesList})
       })
       .then(function(res){ console.log(res) })
-      .catch(function(res){ console.log(res) })
+      .catch(function(res){
+        console.log('The server is not ready for storing data');
+        // console.log(res);
+       })
 
       $(this).addClass('hidden');
     });

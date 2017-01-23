@@ -69,3 +69,13 @@ h2{
 .session-task, .session-result{
   @extend .infoblock;
 }
+// FOOTER START
+footer{
+  .admin{
+    color: transparent;
+    &:hover{
+      color:rgba(156, 194, 227, 0.5)
+    }
+  }
+}
+// FOOTER END
