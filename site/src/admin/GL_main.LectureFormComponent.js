@@ -3,6 +3,6 @@
 
   angular.module('GLApp')
   .component('lectureFormComponent',{
-    templateUrl: 'templates/admin.lecture.component.html'
+    templateUrl: 'site/src/admin/admin.lecture.component.html'
   });
 }());

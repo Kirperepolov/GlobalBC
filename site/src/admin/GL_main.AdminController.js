@@ -47,7 +47,7 @@
     // save sessions
     adminka.saveSessions = function(){
 
-      fetch("src/session_list.json",
+      fetch("site/src/session_list.json",
       {
         method: "PATCH",
         contenType: 'application/json',

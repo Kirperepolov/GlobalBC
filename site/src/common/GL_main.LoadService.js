@@ -10,7 +10,7 @@
     service.lecturesList ={};
 
     service.getList = function(color){
-      let path = 'src/session_list.json';
+      let path = 'site/src/session_list.json';
 
       return $http.get(path)    //a shortcut method fot GET requests
       .then(function (result) {

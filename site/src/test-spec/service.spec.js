@@ -12,7 +12,7 @@ describe("Testing the LoadService.", function(){
   });
 
   it('Is expected to inject the service correctly',function(){
-    $httpBackend.whenGET('src/session_list.json').respond({lectures:['val1','val2']});
+    $httpBackend.whenGET('site/src/session_list.json').respond({lectures:['val1','val2']});
 
     myService.getList().then(function(resp){
       expect(resp).toEqual(['val1','val2']);

@@ -15,7 +15,7 @@
       .state('home', {
         url: '/',
         // templateUrl: 'templates/admin.component.html',
-        templateUrl: 'templates/home.template.html',
+        templateUrl: 'site/src/common/home.template.html',
         controller: 'MainController as sessionsCtrl',
         resolve:{
           sessions: ['LoadService',
@@ -30,13 +30,13 @@
 
       .state('home.sessionDetails', {
         url: 'session/{sessionId}',
-        templateUrl: 'templates/session.template.html',
+        templateUrl: 'site/src/sessions/session.template.html',
         controller: 'SessionController as ctrl'
       })
 
       .state('home.admin',{
         url: 'admin/',
-        templateUrl: 'templates/admin.template.html',
+        templateUrl: 'site/src/admin/admin.template.html',
         controller: 'AdminController as adminka'
       });
   }

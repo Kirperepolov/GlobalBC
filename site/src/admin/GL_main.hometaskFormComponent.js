@@ -3,6 +3,6 @@
 
   angular.module('GLApp')
   .component('hometaskFormComponent',{
-    templateUrl: 'templates/admin.hometask.component.html'
+    templateUrl: 'site/src/admin/admin.hometask.component.html'
   });
 }());

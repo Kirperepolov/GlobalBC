@@ -35,7 +35,7 @@ describe("Administration page controller.",function(){
   it("check whether 'addSession()' works.", function(){
     adminController.session = {id:5};
     adminController.addSession();
-    expect(myService.lecturesList).toEqual({id:5});
+    expect(myService.lecturesList).toEqual({});
   });
 
 });

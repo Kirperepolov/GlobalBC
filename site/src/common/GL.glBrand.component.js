@@ -3,6 +3,6 @@
 
   angular.module('GLApp')
   .component('glBrand',{
-    templateUrl: 'templates/GL.brand.component.html'
+    templateUrl: 'site/src/common/GL.brand.component.html'
   });
 }());

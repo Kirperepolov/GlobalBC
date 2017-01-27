@@ -1,0 +1,108 @@
+/* line 1, site/scss/style.scss */
+header, main {
+  border-bottom: 4px double #777;
+  padding: 40px 0 20px;
+}
+
+/* line 7, site/scss/style.scss */
+body {
+  background-image: url(../src/images/Apple-Keyboard-Wallpaper-For-Computer-199.jpg);
+  background-position: top center;
+  background-color: #000;
+  background-repeat: no-repeat;
+  color: #f0f0f0;
+}
+
+/* line 14, site/scss/style.scss */
+.svg-logo-desktop {
+  width: 20.25rem;
+  max-width: 100%;
+  max-height: 4.125rem;
+}
+
+/* line 18, site/scss/style.scss */
+.svg-logo-desktop :hover {
+  cursor: pointer;
+}
+
+/* line 21, site/scss/style.scss */
+.svg-logo-desktop g {
+  fill: #FFF;
+}
+
+/* line 25, site/scss/style.scss */
+.navbar-inverse {
+  background-color: transparent;
+  border: none;
+}
+
+/* line 30, site/scss/style.scss */
+h2 a {
+  text-decoration: none;
+  color: #f0f0f0;
+}
+
+/* line 36, site/scss/style.scss */
+.infoblock, .session-task, .session-result {
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px 30px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 5px solid rgba(255, 255, 255, 0);
+  position: relative;
+}
+
+/* line 37, site/scss/style.scss */
+.infoblock h3, .session-task h3, .session-result h3, .infoblock h4, .session-task h4, .session-result h4, .infoblock h5, .session-task h5, .session-result h5 {
+  margin: 0 0 20px;
+  font-size: 2.8rem;
+}
+
+/* line 39, site/scss/style.scss */
+.infoblock h3 a, .session-task h3 a, .session-result h3 a, .infoblock h4 a, .session-task h4 a, .session-result h4 a, .infoblock h5 a, .session-task h5 a, .session-result h5 a {
+  text-decoration: none;
+  color: #f0f0f0;
+}
+
+/* line 42, site/scss/style.scss */
+.infoblock h3 a:hover, .session-task h3 a:hover, .session-result h3 a:hover, .infoblock h4 a:hover, .session-task h4 a:hover, .session-result h4 a:hover, .infoblock h5 a:hover, .session-task h5 a:hover, .session-result h5 a:hover {
+  color: #9cc2e3;
+}
+
+/* line 48, site/scss/style.scss */
+.infoblock h4, .session-task h4, .session-result h4 {
+  font-size: 2.2rem;
+}
+
+/* line 52, site/scss/style.scss */
+.infoblock h5, .session-task h5, .session-result h5 {
+  font-size: 2.0rem;
+}
+
+/* line 63, site/scss/style.scss */
+.infoblock p, .session-task p, .session-result p, .infoblock a, .session-task a, .session-result a {
+  font-size: 1.6rem;
+}
+
+/* line 66, site/scss/style.scss */
+.infoblock a, .session-task a, .session-result a {
+  color: #9cc2e3;
+}
+
+/* line 68, site/scss/style.scss */
+.infoblock a:hover, .session-task a:hover, .session-result a:hover {
+  color: #9cc2e3;
+}
+
+/* line 78, site/scss/style.scss */
+footer .admin {
+  color: transparent;
+}
+
+/* line 80, site/scss/style.scss */
+footer .admin:hover {
+  color: rgba(156, 194, 227, 0.5);
+}
+
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAic3R5bGUuY3NzIiwKCSJzb3VyY2VzIjogWwoJCSIuLi9zY3NzL3N0eWxlLnNjc3MiCgldLAoJIm5hbWVzIjogW10sCgkibWFwcGluZ3MiOiAiO0FBQUEsQUFBQSxNQUFNLEVBQUMsQUFBRCxJQUFLLENBQUE7RUFDVCxhQUFhLEVBQUUsZUFBZTtFQUM5QixPQUFPLEVBQUUsV0FBVztDQUNyQjs7O0FBR0QsQUFBQSxJQUFJLENBQUM7RUFDSCxnQkFBZ0IsRUFBRSxnRUFBZ0U7RUFDbEYsbUJBQW1CLEVBQUcsVUFBVTtFQUNoQyxnQkFBZ0IsRUFBRSxJQUFJO0VBQ3RCLGlCQUFpQixFQUFFLFNBQVM7RUFDNUIsS0FBSyxFQVBLLE9BQU87Q0FRbEI7OztBQUNELEFBQUEsaUJBQWlCLENBQUM7RUFDZCxLQUFLLEVBQUUsUUFBUTtFQUNmLFNBQVMsRUFBRSxJQUFJO0VBQ2YsVUFBVSxFQUFFLFFBQVE7Q0FPdkI7OztBQVZELEFBSUksaUJBSmEsQ0FJYixNQUFNLENBQUE7RUFDSixNQUFNLEVBQUUsT0FBTztDQUNoQjs7O0FBTkwsQUFPSSxpQkFQYSxDQU9iLENBQUMsQ0FBQztFQUNBLElBQUksRUFBRSxJQUFJO0NBQ1g7OztBQUVMLEFBQUEsZUFBZSxDQUFDO0VBQ2QsZ0JBQWdCLEVBQUUsV0FBVztFQUM3QixNQUFNLEVBQUUsSUFBSTtDQUNiOzs7QUFDRCxBQUNFLEVBREEsQ0FDQSxDQUFDLENBQUM7RUFDQSxlQUFlLEVBQUUsSUFBSTtFQUNyQixLQUFLLEVBM0JHLE9BQU87Q0E0QmhCOzs7QUFHSCxBQUFBLFVBQVUsRUFxQ1YsQUFyQ0EsYUFxQ2EsRUFBRSxBQXJDZixlQXFDOEIsQ0FyQ3BCO0VBb0JSLGFBQWEsRUFBRSxJQUFJO0VBQ25CLGdCQUFnQixFQUFFLHdCQUFxQjtFQUN2QyxPQUFPLEVBQUUsU0FBUztFQUNsQixNQUFNLEVBQUUsS0FBSztFQUNiLFVBQVUsRUFBRSxVQUFVO0VBQ3RCLE1BQU0sRUFBRSxHQUFHLENBQUMsS0FBSyxDQUFDLHNCQUFt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 */

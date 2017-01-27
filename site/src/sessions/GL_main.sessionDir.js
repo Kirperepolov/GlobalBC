@@ -6,7 +6,7 @@
 
   function sessinDirective(){
     let ddo = {
-      templateUrl: 'templates/session.directive.html',
+      templateUrl: 'site/src/sessions/session.directive.html',
       scope: {
         session: '<'
       },
