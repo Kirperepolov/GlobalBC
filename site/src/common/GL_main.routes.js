@@ -38,6 +38,16 @@
         url: 'admin/',
         templateUrl: 'site/src/admin/admin.template.html',
         controller: 'AdminController as adminka'
+      })
+
+      .state('aboutProject',{
+        url: '/about-the-project',
+        templateUrl: 'site/src/about/about.template.html'
+      })
+
+      .state('contact',{
+        url: '/contact-me',
+        templateUrl: 'site/src/contact/contact.template.html'
       });
   }
 

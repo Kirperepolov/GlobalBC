@@ -8,9 +8,25 @@ body {
   background-image: url(../src/images/Apple-Keyboard-Wallpaper-For-Computer-199.jpg);
   background-position:  top center;
   background-color: #000;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   color: $text-color;
+  font-family: 'Montserrat', sans-serif;
 }
+// header start
+nav .navbar-header a
+{
+  color:$text-color;
+  text-decoration: none;
+  &:hover, &:active{
+    text-decoration: none;
+  }
+}
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+  background-color: transparent;
+}
+// header end
 .svg-logo-desktop {
     width: 20.25rem;
     max-width: 100%;
@@ -26,10 +42,21 @@ body {
   background-color: transparent;
   border: none;
 }
+h1{
+  margin-top: 0;
+}
 h2{
+  &::before{
+    content: "";
+    display: table;
+    clear: both;
+  }
   a {
     text-decoration: none;
     color: $text-color;
+    &:hover, &:active{
+      color: $text-color;
+    }
   }
 }
 
@@ -53,20 +80,25 @@ h2{
     @extend h3;
     font-size: 2.0rem
   }
-  border-radius: 30px;
-  background-color: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.12);
   padding: 20px 30px;
   margin: 5px 0;
   box-sizing: border-box;
   border: 5px solid rgba(255,255,255,0);
   position: relative;
-  p, a{
+  p, a, ul>li{
     font-size: $text-size;
+    letter-spacing: 0.7px;
+    line-height: 2.5rem;
   }
   a{
     color: #9cc2e3;
     &:hover{
       color: #9cc2e3;
+    }
+    &.contact{
+      color: $text-color;
     }
   }
 }
@@ -83,3 +115,10 @@ footer{
   }
 }
 // FOOTER END
+
+
+/********** Extra small devices only **********/
+@media (max-width: 767px) {
+  /* Header */
+
+}
