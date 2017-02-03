@@ -1,4 +1,4 @@
-<h4 name="{{'ses'+sessionId}}">{{session.title}}</h4>
+<h4 id="session-details">{{session.title}}</h4>
 <div class="col-sm-6 session-task">
   <h5>Tasks and materials</h5>
   <p ng-repeat="lecture in session.lecture">
@@ -11,8 +11,8 @@
     <h5>Hometask</h5>
     <p  class="col-sm-6">{{hometask.name}} hometask</p>
     <div class="col-sm-6">
-      <p class="hometask"><a ng-href="{{hometask.taskUrl}}">Task</a></p>
-      <p class="hometask-result"><a ng-href="{{hometask.url}}">Result</a></p>
+      <p class="hometask" ng-show="hometask.taskUrl"><a ng-href="{{hometask.taskUrl}}">Task</a></p>
+      <p class="hometask-result" ng-show="hometask.url"><a ng-href="{{hometask.url}}">Result</a></p>
     </div>
   </div>
 </div>

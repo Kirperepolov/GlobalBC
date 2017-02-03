@@ -4,11 +4,13 @@ header,main{
 }
 $text-color:#f0f0f0;
 $text-size: 1.6rem;
+html{
+    background-color: #000;
+}
 body {
   background-image: url(../src/images/Apple-Keyboard-Wallpaper-For-Computer-199.jpg);
   background-position:  top center;
-  background-color: #000;
-  background-repeat: repeat-y;
+  background-size:cover;
   color: $text-color;
   font-family: 'Montserrat', sans-serif;
 }
