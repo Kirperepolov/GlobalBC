@@ -3,6 +3,9 @@ body {
   font-weight: bolder;
   text-align: center;
 }
+#toggleButton {
+  display: none;
+}
 .container{
   display: -webkit-flex;
   display: -ms-flex;
