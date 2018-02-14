@@ -1,10 +1,10 @@
 var pathList = {
-  "people": "http://swapi.co/api/people/",
-  "planets": "http://swapi.co/api/planets/",
-  "vehicles": "http://swapi.co/api/vehicles/",
-  "species": "http://swapi.co/api/species/",
-  "starships": "http://swapi.co/api/starships/",
-  "films": "http://swapi.co/api/films/"
+  "people": "https://swapi.co/api/people/",
+  "planets": "https://swapi.co/api/planets/",
+  "vehicles": "https://swapi.co/api/vehicles/",
+  "species": "https://swapi.co/api/species/",
+  "starships": "https://swapi.co/api/starships/",
+  "films": "https://swapi.co/api/films/"
 };
 
 
